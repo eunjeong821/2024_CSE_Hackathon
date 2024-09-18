@@ -2297,8 +2297,8 @@ button,
 .login-box h2 {
   display: inline-block;
   position: relative;
-  top: 10px;
-  font-size: 40px;
+  top: 7px;
+  font-size: 33px;
 }
 
 .login-box .input-box {
@@ -2307,6 +2307,16 @@ button,
   height: 50px;
   margin-top: 20px;
   margin-bottom: 30px;
+}
+
+.input-box p{
+  position: relative;
+  left: 10px;
+  margin: 40px 0 3px;
+  text-align: left;
+  color: #3d4449;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .input-box input {
@@ -2368,4 +2378,65 @@ button,
 
 .register-link p a:hover{
   text-decoration: underline;
+}
+
+#signup {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 80vh;
+}
+
+.signup-box {
+  width: 420px;
+  text-align: center;
+  border: solid 3px #68decd;
+  border-radius: 20px;
+  padding: 30px 30px;
+}
+
+.signup-box img {
+  display: inline-block;
+  position: relative;
+  top: 30px;
+}
+
+.signup-box h2 {
+  display: inline-block;
+  position: relative;
+  top: 7px;
+  font-size: 33px;
+}
+
+.signup-box .input-box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.signup-box input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  outline: none;
+  border-radius: 40px;
+  padding: 20px 45px 20px 20px;
+}
+
+.signup-box input::placeholder {
+  color: #fff;
+}
+
+.signup-box .button {
+  width: 100%;
+  height: 50px;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: 600;
 }
