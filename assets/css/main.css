@@ -2440,3 +2440,112 @@ button,
   cursor: pointer;
   font-weight: 600;
 }
+
+.map-content {
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0,0,0,0.15);
+}
+
+/* 지도창용 */
+.mapwrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+.mapwrap * {padding: 0;margin: 0;}
+.mapwrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+.mapwrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+.info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+.info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+.info .close:hover {cursor: pointer;}
+.info .body {position: relative;overflow: hidden;}
+.info .desc {position: relative;margin: 10px 10px 10px 10px;height: 100px;}
+.desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+.info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+.info .link {color: #5085BB;}
+
+/* 카테고리 박스용 */
+.category-box {
+  box-sizing: border-box;
+}
+
+.select-box {
+  display: flex;
+  width: 400px;
+  flex-direction: column;
+}
+
+.select-box .options-container {
+  max-height: 0;
+  width: 100%;
+  opacity: 0;
+  transition: all 0.4s;
+  border: solid 1px #7f888f;
+  border-radius: 8px;
+  overflow: hidden;
+
+  order: 1;
+}
+
+.selected {
+  border: solid 1px #7f888f;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  position: relative;
+
+  order: 0;
+}
+
+.selected::after {
+  content: "";
+  position: absolute;
+  height:100%;
+  width: 32px;
+  right: 10px;
+  top: 5px;
+
+  transition: all 0.4s;
+}
+
+.select-box .options-container.active {
+  max-height: 240px;
+  opacity: 1;
+  overflow-y: scroll;
+}
+
+.select-box .options-container::-webkit-scrollbar {
+  width: 10px;
+  background-color: #aaaaaad0;
+  border-radius: 0 8px 8px 0;
+}
+
+.select-box .options-container::-webkit-scrollbar-thumb {
+  background-color: #d6d6d6d0;
+  border-radius: 0 8px 8px 0;
+}
+
+.select-box {
+  padding: 12px 24px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  color:#4a5053;
+}
+
+.select-box .option {
+  height: 58px;
+  padding: 12px 24px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  color:#4a5053;
+}
+
+.select-box .option:hover {
+  background: #68decc1b;
+}
+
+.select-box label {
+  cursor: pointer;
+}
+
+.select-box .option .radio {
+  display: none;
+}
