@@ -23,3 +23,35 @@ async function registerEvent() {
         document.getElementById('eventForm').reset();
     }
 }
+
+exports.handler = async () => {
+    const { data, error } = await supabase
+        .from('events')
+        .delete()
+        .lt('end_date', new Date().toISOString().split('T')[0]);
+    
+    if (error) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: error.message }),
+        };
+    }
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify({ message: 'Expired events deleted successfully' }),
+    };
+};
+
+async function deleteExpiredEvents() {
+    const { data, error } = await supabase.rpc('delete_expired_events');
+    
+    if (error) {
+        console.error('Error deleting expired events:', error);
+    } else {
+        console.log('Expired events deleted successfully:', data);
+    }
+}
+
+// 함수 호출
+deleteExpiredEvents();
