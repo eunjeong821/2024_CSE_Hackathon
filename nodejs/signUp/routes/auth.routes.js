@@ -1,0 +1,25 @@
+import { Router } from 'express';
+import { signUp, getUserData, login, verifyCurrentPassword, updatePassword, deleteUser } from '../controllers/auth.controller.js';
+import { authenticateToken } from '../middleware/authenticateToken.js';
+
+const router = Router();
+
+// 회원가입 경로
+router.post('/signUp', signUp);
+
+// 회원정보 조회(마이페이지) 경로
+router.get('/mypage', authenticateToken, getUserData);  // JWT 인증 미들웨어를 사용하여 보호된 API
+
+// 로그인 경로
+router.post('/login', login);
+
+// 현재 비밀번호 확인 경로
+router.post('/reset-password/verify-current-password', authenticateToken, verifyCurrentPassword);
+
+// 비밀번호 업데이트 경로 (이미 구현된 경우)
+router.post('/reset-password/update', authenticateToken, updatePassword);
+
+// 회원 삭제 경로 (JWT 인증 필요)
+router.delete('/delete', authenticateToken, deleteUser);
+
+export default router;
