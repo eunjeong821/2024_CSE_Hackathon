@@ -80,7 +80,7 @@ export const postOtp = async (req, res) => {
 
     // OTP 발송
     await authService.sendOtp(phoneNumber);
-    return res.status(httpStatus.OK).json("OTP 발송 성공");
+    return res.status(httpStatus.OK).json({ otpSent: true });
   } catch (error) {
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).json("OTP 발송 실패:" + error.message);
   }
@@ -94,7 +94,7 @@ export const otpVerification = async (req, res) => {
     if (!otpVerified) {
       return res.status(httpStatus.FORBIDDEN).json("OTP 검증 실패");
     }
-    return res.status(httpStatus.OK).json("OTP 검증 성공");
+    return res.status(httpStatus.OK).json({ verified: true });
   } catch (error) {
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).json("OTP 검증 실패:" + error.message);
   }
@@ -106,7 +106,7 @@ export const signUp = async (req, res) => {
   try {
     // 사용자 데이터 저장
     await authService.registerUser(phoneNumber, nickname, password, receiveNotifications);
-    return res.status(httpStatus.CREATED).json("회원가입 성공");
+    return res.status(httpStatus.CREATED).json({ ok: true });
   } catch (error) {
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).json("회원가입 실패:" + error.message);
   }

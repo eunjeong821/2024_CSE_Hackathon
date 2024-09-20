@@ -32,7 +32,7 @@
                                         </div>
                                         <p id="timeattack">* 제한시간 3분</p>
 
-                                        <button type="submit" class="button" onclick="history.back()" style="margin-top: 10px; margin-bottom: 20px;">확인</button>
+                                        <button type="submit" class="button" onclick="verifyOTP()" style="margin-top: 10px; margin-bottom: 20px;">확인</button>
 
                                     </div>
 								</section>
@@ -86,6 +86,31 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+				async function verifyOTP() {
+				  const code = document.querySelector('input[type="text"]').value;
+				  const urlParams = new URLSearchParams(window.location.search);
+				  const phoneNumber = urlParams.get('phone');
+				  // OTP 검증 요청
+				  const response = await fetch('http://localhost:3000/api/sms/auth/otp/validation', {
+					method: 'POST',
+					headers: {
+					  'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ phoneNumber, code }),
+				  });
+			  
+				  const data = await response.json();
+			  
+				  if (data.verified) {
+					alert('OTP 검증 성공');
+					window.location.href = `signup.html?otp_verified=true&phone=${encodeURIComponent(phoneNumber)}`;  // OTP 검증 성공 시 회원가입 페이지로 복귀
+				  } else {
+					alert('OTP 검증 실패');
+				  }
+				}
+			  </script>
+			  
 
 	</body>
 </html>

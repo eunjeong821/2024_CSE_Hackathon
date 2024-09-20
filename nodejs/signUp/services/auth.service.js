@@ -1,5 +1,6 @@
 import { supabase } from '../utils/supabaseClient.js';
 import { sendMessage } from '../utils/coolSms.js';
+import generate4DigitRandom from '../utils/random.js';
 import bcrypt from 'bcrypt';
 
 //OTP 발송
@@ -35,7 +36,6 @@ export const verifyOtp = async (phoneNumber, code) => {
     .limit(1)
     .single();
 
-
   if (error) throw new Error('OTP 조회 중 오류 발생: ' + error.message);
 
   if (data.code !== code) {
@@ -60,6 +60,7 @@ export const verifyOtp = async (phoneNumber, code) => {
 
 // 전화번호 중복 확인 함수
 export const checkPhoneNumber = async (phoneNumber) => {
+
   const { data, error } = await supabase
     .from('users')  // 사용자가 저장된 테이블
     .select('id')  // 필요한 필드만 선택
