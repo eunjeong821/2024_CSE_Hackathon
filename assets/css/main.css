@@ -2773,3 +2773,22 @@ button,
   margin-bottom: 5px;
   margin-top: 20px;
 }
+
+/* 쿠폰함 */
+#couponList p{
+  margin: 0 0 5px 20px;
+  padding: 0 0 0 0;
+}
+
+#couponList h2{
+  margin: 0 0 5px 15px;
+  padding: 0 0 0 0;
+}
+
+#couponList button {
+  width: 20%;
+  margin-left: 80%;
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: center;
+}
