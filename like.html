@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>행사 찜하기</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <style>
+      /* 간단한 스타일 */
+      #eventContainer, #likedEventsContainer {
+          margin: 20px;
+      }
+      .event {
+          border: 1px solid #ccc;
+          padding: 10px;
+          margin: 10px 0;
+      }
+  </style>
+</head>
+<body>
+
+  <h2>행사 목록</h2>
+  <div id="eventContainer"></div>
+  
+  <h2>찜한 행사 목록</h2>
+  <div id="likedEventsContainer"></div>
+
+  <script type="module">
+    // supabase 변수를 전역으로 선언
+    window.currentUserId = '8c505c10-a684-4de9-9b80-c4344612ab49'; // 사용자 UUID로 변경
+  </script>
+  
+<script type="module" src="like.js"></script>
+
+</body>
+</html>
