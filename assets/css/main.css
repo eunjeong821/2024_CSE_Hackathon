@@ -2838,3 +2838,43 @@ button,
   top: 4px;
   margin-left: 50%;
 }
+
+/* 찜 */
+#likedEvents h2 {
+  margin-left: 25px;
+}
+#eventContainer p{
+  margin: 0 0 5px 20px;
+  padding: 10px 0 0 0;
+}
+
+#eventContainer h3{
+  margin: 0 0 5px 15px;
+  padding: 10px 0 0 0;
+}
+
+#eventContainer button {
+  width: 20%;
+  margin-left: 80%;
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: center;
+}
+
+#likedEventsContainer p{
+  margin: 0 0 5px 20px;
+  padding: 10px 0 0 0;
+}
+
+#likedEventsContainer h3{
+  margin: 0 0 5px 15px;
+  padding: 10px 0 0 0;
+}
+
+#likedEventsContainer button {
+  width: 20%;
+  margin-left: 80%;
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: center;
+}
