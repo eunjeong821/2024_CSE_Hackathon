@@ -27,7 +27,7 @@
                                         <h2>할인 행사 등록</h2>
                                         <form id="eventForm" onsubmit="registerEvent(); return false;">
                                             행사 이름: <input type="text" id="eventName" placeholder="행사 이름을 입력하세요" required><br>
-                                            행사 기간: <input type="date" id="startDate" required> ~ <input type="date" id="endDate" required><br>
+                                            행사 기간: <input type="date" id="startDate" required> ~ <input type="date" id="endDate" required><br><br>
                                             행사 소개글: <textarea id="eventDescription" placeholder="행사 소개글을 입력하세요" required></textarea><br>
                                             <button type="submit">행사 등록</button>
                                         </form>
@@ -40,7 +40,7 @@
 
                                     <!-- 쿠폰 등록 섹션 추가 -->
                                     <div id="couponWrap">
-                                        <h4>쿠폰 등록</h4>
+                                        <h2>쿠폰 등록</h2>
                                         <form id="couponForm" onsubmit="registerCoupon(); return false;">
                                             쿠폰 코드: <input type="text" id="couponCode" placeholder="쿠폰 코드를 입력하세요" required>
                                             할인율: <input type="number" id="discount" placeholder="할인율 (%)" required>

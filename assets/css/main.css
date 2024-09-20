@@ -2687,3 +2687,30 @@ button,
   border: solid 3px #68decd;
   background-color: #c3fff641;
 }
+
+/* event 등록 */
+#event {
+  color:#3d4449;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+#eventForm {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#eventForm input {
+  margin-left: 10px;
+}
+
+#eventForm input[type="text"] {
+  width: 90%;
+}
+
+#eventForm input[type="date"] {
+  height: 50px;
+  width: 20%;
+  position: relative;
+  top: 20px;
+}
