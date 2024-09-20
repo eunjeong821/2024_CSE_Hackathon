@@ -2722,7 +2722,7 @@ button,
 
 .rightButton {
   display: flex;
-  justify-content: right; 
+  justify-content: end; 
   margin-right: 15px;
 }
 
