@@ -2618,3 +2618,72 @@ button,
   cursor: pointer;
   font-weight: 600;
 }
+
+/* 마이페이지 */
+.mypage-name {
+  display: flex;
+}
+
+.mypage-name h1 {
+  font-size: 43px;
+  margin-left: 10px;
+}
+
+.dividing-line {
+  width: 95%;
+}
+
+.mypage-container {
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mypage-item {
+  width: 22%;
+  min-width: 200px;
+  height: 280px;
+  padding: 30px 30px 30px 30px;
+  margin: 10px 10px 10px 10px;
+  border: solid 3px rgb(157, 157, 157);
+  border-radius: 20px;
+  font-size: 25px;
+  font-weight: 600;
+  color: #505152;
+}
+
+.mypage-item a {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border-bottom: 0;
+  color: #505152;
+  text-decoration: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+  a:hover {
+    color: #505152 !important;
+  }
+
+.mypage-item p {
+  margin: 0;
+  padding: 0;
+  margin-top: 30px;
+}
+
+.mypage-item svg {
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.mypage-item:hover {
+  border: solid 3px #68decd;
+  background-color: #c3fff641;
+}
