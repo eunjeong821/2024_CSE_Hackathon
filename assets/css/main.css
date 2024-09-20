@@ -2824,3 +2824,10 @@ button,
   width: 30%;
   margin-left: 10px;
 }
+
+/* 로그아웃 버튼 */
+#logoutButton {
+  position: relative;
+  top: 4px;
+  margin-left: 50%;
+}
