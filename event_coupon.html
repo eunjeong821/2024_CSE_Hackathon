@@ -18,6 +18,9 @@
 </div>
 
 
+<h4>만료된 이벤트 삭제</h4>
+<button id="deleteExpiredEventsBtn">만료된 이벤트 삭제</button>
+
 
 <!-- 쿠폰 등록 섹션 추가 -->
 <div id="couponWrap">
@@ -44,6 +47,12 @@
 <script src="coupon.js"></script>
 <script src="use_coupon.js"></script>
 <script src="event.js"></script>
+
+
+
+<script>
+document.getElementById('deleteExpiredEventsBtn').addEventListener('click', deleteExpiredEvents);
+</script>
 
 </body>
 </html>
