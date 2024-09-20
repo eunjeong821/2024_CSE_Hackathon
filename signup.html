@@ -5,6 +5,20 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		
+		<style>
+			input[type="checkbox"] {
+			  width: auto;
+			  margin-right: 10px;
+			}
+		
+			label {
+			  display: flex;
+			  align-items: center;
+			  justify-content: start;
+			}
+		  </style>
+	
 	</head>
 	<body class="is-preload">
 
@@ -32,6 +46,9 @@
                                         </div>
                                         <div class="input-box">
 											<p>* 전화번호</p>
+											<input type="tel" id="phone" placeholder="Phone" required>
+											<input type="button" value="확인" id="phoneCheckBtn" style="border: solid 1px gray; border-radius: 0; box-shadow: none; color: gray !important; height: 30px; width: 50px; line-height: 0; padding: 10px 10px 10px 10px; font-size: 10px; position: relative; bottom: 40px; left: 37%;">
+										</div>
                                             <input type="tel" placeholder="Phone" required><button type='submit' onclick="location.href='telCheckOTP.html'" style="border: solid 1px gray; border-radius: 0; box-shadow: none; color: gray !important; height: 30px; width: 50px; line-height: 0; padding: 10px 10px 10px 10px; font-size: 10px; position: relative; bottom: 40px; left: 37%;">확인</button>
                                         </div>
                                         <div class="input-box">
@@ -129,3 +146,34 @@
 			
 	</body>
 </html>
+
+<script>
+	document.querySelector('form').addEventListener('submit', async function(event) {
+	  event.preventDefault();
+	  
+	  const phoneNumber = document.querySelector('input[type="tel"]').value;
+	  const password = document.querySelector('input[type="password"]').value;
+	  const name = document.querySelector('input[type="text"]').value;
+	  const emailConsent = document.getElementById('emailConsent').checked;
+  
+	  try {
+		const response = await fetch('/auth/signup', {
+		  method: 'POST',
+		  headers: {
+			'Content-Type': 'application/json',
+		  },
+		  body: JSON.stringify({ phoneNumber, password, name, emailConsent }),
+		});
+  
+		if (response.ok) {
+		  alert('회원가입 성공');
+		  window.location.href = 'login.html';  // 성공 시 로그인 페이지로 이동
+		} else {
+		  alert('회원가입 실패');
+		}
+	  } catch (error) {
+		console.error('에러 발생', error);
+	  }
+	});
+  </script>
+  

@@ -1,6 +1,15 @@
 import * as authService from '../services/auth.service.js';
 import jwt from 'jsonwebtoken';
 import httpStatus from 'http-status-codes';
+import { tokenBlacklist } from '../app.js';
+
+// 보호된 경로에서 실행될 컨트롤러 함수
+export const protectedRout = (req, res) => {
+  res.status(200).json({
+    message: '인증된 사용자만 접근 가능합니다',
+    user: req.user  // JWT 토큰에서 추출한 사용자 정보
+  });
+};
 
 // 사용자 정보 호출
 export const getUserData = async (req, res) => {
@@ -73,7 +82,7 @@ export const postOtp = async (req, res) => {
     await authService.sendOtp(phoneNumber);
     return res.status(httpStatus.OK).json("OTP 발송 성공");
   } catch (error) {
-    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json("OTP 발송 실패:"+error.message);
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json("OTP 발송 실패:" + error.message);
   }
 };
 
@@ -87,7 +96,7 @@ export const otpVerification = async (req, res) => {
     }
     return res.status(httpStatus.OK).json("OTP 검증 성공");
   } catch (error) {
-    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json("OTP 검증 실패:"+error.message);
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json("OTP 검증 실패:" + error.message);
   }
 };
 
@@ -99,7 +108,7 @@ export const signUp = async (req, res) => {
     await authService.registerUser(phoneNumber, nickname, password, receiveNotifications);
     return res.status(httpStatus.CREATED).json("회원가입 성공");
   } catch (error) {
-    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json("회원가입 실패:"+error.message);
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json("회원가입 실패:" + error.message);
   }
 };
 
@@ -124,7 +133,6 @@ export const login = async (req, res) => {
     const token = jwt.sign(
       { id: user.id, phoneNumber: user.phone_number },
       process.env.JWT_SECRET,  // 이 부분에서 비밀 키 사용
-      { expiresIn: '1h' }  // 토큰 만료 시간 설정
     );
 
     // 사용자에게 토큰 반환
@@ -147,4 +155,36 @@ export const deleteUser = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ success: false, message: "회원 삭제 실패: " + error.message });
   }
+};
+
+// 로그아웃 처리
+export const logout = (req, res) => {
+  const token = req.headers['authorization'].split(' ')[1];  // Authorization 헤더에서 JWT 토큰 추출
+
+  // 블랙리스트에 토큰 추가
+  tokenBlacklist.push(token);
+
+  // 응답: 로그아웃 완료 메시지
+  return res.status(200).json({ message: "로그아웃 완료" });
+};
+
+// 인증 미들웨어에서 블랙리스트에 있는 토큰 차단
+export const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) {
+    return res.sendStatus(401);  // 토큰이 없으면 401 Unauthorized 반환
+  }
+
+  // 토큰이 블랙리스트에 있는지 확인
+  if (tokenBlacklist.includes(token)) {
+    return res.sendStatus(403);  // 블랙리스트에 있는 토큰이면 403 Forbidden 반환
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);  // 토큰 검증 실패 시 403 반환
+    req.user = user;  // 토큰 검증 성공 시 사용자 정보를 req.user에 저장
+    next();
+  });
 };

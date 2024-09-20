@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>키워드로 장소검색하고 목록으로 표출하기</title>
+</head>
+<body>
+
+<!-- 할인 행사 등록 섹션 -->
+<div id="eventWrap">
+    <h4>할인 행사 등록</h4>
+    <form id="eventForm" onsubmit="registerEvent(); return false;">
+        행사 이름: <input type="text" id="eventName" placeholder="행사 이름을 입력하세요" required><br>
+        행사 기간: <input type="date" id="startDate" required> ~ <input type="date" id="endDate" required><br>
+        행사 소개글: <textarea id="eventDescription" placeholder="행사 소개글을 입력하세요" required></textarea><br>
+        <button type="submit">행사 등록</button>
+    </form>
+</div>
+
+
+<h4>만료된 이벤트 삭제</h4>
+<button id="deleteExpiredEventsBtn">만료된 이벤트 삭제</button>
+
+
+<!-- 쿠폰 등록 섹션 추가 -->
+<div id="couponWrap">
+    <h4>쿠폰 등록</h4>
+    <form id="couponForm" onsubmit="registerCoupon(); return false;">
+        쿠폰 코드: <input type="text" id="couponCode" placeholder="쿠폰 코드를 입력하세요" required>
+        할인율: <input type="number" id="discount" placeholder="할인율 (%)" required>
+        유효기간: <input type="date" id="expirationDate" required>
+        사용 조건: <input type="text" id="conditions" placeholder="사용 조건">
+        <button type="submit">쿠폰 등록</button>
+    </form>
+</div>
+
+
+<!-- 쿠폰 사용 버튼 추가 -->
+<div id="couponUsageWrap">
+    <h4>쿠폰 사용</h4>
+    <button id="useCouponButton" onclick="useCoupon()">쿠폰 사용</button>
+</div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=75563b259cee51be8e0b0df6c4ffea4a&libraries=services"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script src="coupon.js"></script>
+<script src="use_coupon.js"></script>
+<script src="event.js"></script>
+
+
+
+<script>
+document.getElementById('deleteExpiredEventsBtn').addEventListener('click', deleteExpiredEvents);
+</script>
+
+</body>
+</html>

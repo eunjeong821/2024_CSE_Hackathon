@@ -6,6 +6,25 @@ import cors from 'cors'; // CORS 문제를 해결
 
 const app = express();
 
+// 토큰 블랙리스트 관리
+export let tokenBlacklist = [];
+
+// 블랙리스트에 추가된 토큰의 만료 시간을 확인하고 만료된 토큰 제거
+function cleanExpiredTokens() {
+  const now = Math.floor(Date.now() / 1000); // 현재 시간을 초 단위로
+  tokenBlacklist = tokenBlacklist.filter(token => {
+    try {
+      const decoded = jwt.decode(token);
+      return decoded.exp > now; // 만료되지 않은 토큰만 남김
+    } catch (err) {
+      return false; // 디코딩에 실패한 토큰은 제거
+    }
+  });
+}
+
+// 주기적으로 만료된 토큰 정리 (예: 1시간마다 실행)
+setInterval(cleanExpiredTokens, 3600000); // 3600000ms = 1시간
+
 // CORS 허용
 app.use(cors());
 
