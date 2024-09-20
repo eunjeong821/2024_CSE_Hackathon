@@ -1,10 +1,10 @@
 
 // 할인 행사 등록 함수
-async function registerEvent() {
+export async function registerEvent() {
     const eventName = document.getElementById('eventName').value;
     const startDate = document.getElementById('startDate').value;
     const endDate = document.getElementById('endDate').value;
-    const eventDescription = document.getElementById('eventDescription').value; // 행사 소개글 추가
+    const eventDescription = document.getElementById('eventDescription').value;
 
     // 할인 행사 등록
     const { data, error } = await supabase
@@ -13,7 +13,7 @@ async function registerEvent() {
             name: eventName, 
             start_date: startDate, 
             end_date: endDate,
-            description: eventDescription // 행사 소개글 추가
+            description: eventDescription, // 행사 소개글 추가
         }]);
 
     if (error) {
@@ -24,34 +24,8 @@ async function registerEvent() {
     }
 }
 
-exports.handler = async () => {
-    const { data, error } = await supabase
-        .from('events')
-        .delete()
-        .lt('end_date', new Date().toISOString().split('T')[0]);
-    
-    if (error) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: error.message }),
-        };
-    }
-
-    return {
-        statusCode: 200,
-        body: JSON.stringify({ message: 'Expired events deleted successfully' }),
-    };
+// 이벤트 핸들러 등록
+document.getElementById('eventForm').onsubmit = async function(event) {
+    event.preventDefault(); // 기본 폼 제출 방지
+    await registerEvent(); // 행사 등록 함수 호출
 };
-
-async function deleteExpiredEvents() {
-    const { data, error } = await supabase.rpc('delete_expired_events');
-    
-    if (error) {
-        console.error('Error deleting expired events:', error);
-    } else {
-        console.log('Expired events deleted successfully:', data);
-    }
-}
-
-// 함수 호출
-deleteExpiredEvents();
