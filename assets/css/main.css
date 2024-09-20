@@ -2722,7 +2722,7 @@ button,
 
 .rightButton {
   display: flex;
-  justify-content: flex-end; 
+  justify-content: right; 
   margin-right: 15px;
 }
 
@@ -2759,4 +2759,17 @@ button,
 .agree label {
   margin: 0 0 0 0;
   padding: 0 0 0 0;
+}
+
+/* 내 정보 수정 */
+.changeInfo-container input {
+  display: flex;
+  width: 95%;
+}
+
+.changeInfo-item label{
+  font-size: 20px;
+  padding-bottom: 0;
+  margin-bottom: 5px;
+  margin-top: 20px;
 }
