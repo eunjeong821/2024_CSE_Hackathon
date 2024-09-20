@@ -92,6 +92,33 @@ window.useCoupon = async (code) => { // 전역으로 정의
 
     // 새로운 창에 쿠폰 정보 표시
     const couponInfo = `
+     <style>
+        .marquee {
+            width: 100%; /* 전체 너비 */
+            overflow: hidden; /* 넘치는 내용 숨기기 */
+            white-space: nowrap; /* 한 줄로 표시 */
+            background-color: #f8d7da; /* 배경 색상 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+        }
+
+        .marquee span {
+            display: inline-block; /* 인라인 블록 요소 */
+            padding: 10px 0; /* 상하 여백 */
+            animation: marquee 10s linear infinite; /* 애니메이션 설정 */
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%); /* 오른쪽에서 시작 */
+            }
+            100% {
+                transform: translateX(-100%); /* 왼쪽으로 이동 */
+            }
+        }
+    </style>
+        <div class="marquee">
+        <span>이 메세지가 움직여야 유효한 쿠폰입니다.</span>
+        </div>
         <h1>${coupon.name}</h1>
         <p>할인율: ${coupon.discount}%</p>
         <p>유효기간: ${coupon.expiration_date}</p>
