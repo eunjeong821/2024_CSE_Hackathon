@@ -2831,3 +2831,10 @@ button,
   top: 4px;
   margin-left: 50%;
 }
+
+/* 회원탈퇴 버튼 */
+#deleteButton {
+  position: relative;
+  top: 4px;
+  margin-left: 50%;
+}
