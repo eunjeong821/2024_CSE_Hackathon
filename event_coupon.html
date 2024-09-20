@@ -17,16 +17,11 @@
     </form>
 </div>
 
-
-<h4>만료된 이벤트 삭제</h4>
-<button id="deleteExpiredEventsBtn">만료된 이벤트 삭제</button>
-
-
 <!-- 쿠폰 등록 섹션 추가 -->
 <div id="couponWrap">
     <h4>쿠폰 등록</h4>
-    <form id="couponForm" onsubmit="registerCoupon(); return false;">
-        쿠폰 코드: <input type="text" id="couponCode" placeholder="쿠폰 코드를 입력하세요" required>
+    <form id="couponForm" onsubmit="return false;">
+        쿠폰 이름: <input type="text" id="name" placeholder="쿠폰 이름" required>
         할인율: <input type="number" id="discount" placeholder="할인율 (%)" required>
         유효기간: <input type="date" id="expirationDate" required>
         사용 조건: <input type="text" id="conditions" placeholder="사용 조건">
@@ -35,24 +30,13 @@
 </div>
 
 
-<!-- 쿠폰 사용 버튼 추가 -->
-<div id="couponUsageWrap">
-    <h4>쿠폰 사용</h4>
-    <button id="useCouponButton" onclick="useCoupon()">쿠폰 사용</button>
-</div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=75563b259cee51be8e0b0df6c4ffea4a&libraries=services"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-<script src="coupon.js"></script>
-<script src="use_coupon.js"></script>
-<script src="event.js"></script>
-
-
-
-<script>
-document.getElementById('deleteExpiredEventsBtn').addEventListener('click', deleteExpiredEvents);
-</script>
+<!-- 모듈로 로드 -->
+<script type="module" src="coupon.js"></script>
+<script type="module" src="event.js"></script>
 
 </body>
 </html>
