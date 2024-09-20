@@ -2687,3 +2687,76 @@ button,
   border: solid 3px #68decd;
   background-color: #c3fff641;
 }
+
+/* event 등록 */
+#event_coupon {
+  color:#3d4449;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+#eventForm {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#eventForm input, textarea {
+  margin-left: 10px;
+  padding: 5px 5px 5px 5px;
+}
+
+#eventForm input[type="text"] {
+  width: 90%;
+}
+
+#eventForm input[type="date"] {
+  height: 50px;
+  width: 20%;
+}
+
+#eventDescription {
+  resize: none;
+  height: 150px;
+  width: 90% !important;
+}
+
+.rightButton {
+  display: flex;
+  justify-content: flex-end; 
+  margin-right: 15px;
+}
+
+/* coupon 등록 */
+#couponForm {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#couponForm input, textarea {
+  margin-left: 10px;
+  padding: 5px 5px 5px 5px;
+}
+
+#couponForm input[type="text"] {
+  width: 90%;
+}
+
+#couponForm input[type="date"], [type="number"] {
+  height: 50px;
+  width: 20%;
+}
+
+.agree {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
+.agree #agreeCheckbox {
+  margin: 30px 0 0 0;
+  padding: 0 0 0 0;
+}
+
+.agree label {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
