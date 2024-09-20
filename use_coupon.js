@@ -63,7 +63,7 @@ const loadCoupons = async () => {
         
         couponList.innerHTML += `
             <div>
-                <h5>${coupon.name}</h5>
+                <h2>${coupon.name}</h2>
                 <p>할인율: ${coupon.discount}%</p>
                 <p>유효기간: ${coupon.expiration_date}</p>
                 <p>사용 조건: ${coupon.conditions}</p>
