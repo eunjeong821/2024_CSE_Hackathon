@@ -1,6 +1,5 @@
 import { supabase } from '../utils/supabaseClient.js';
 import { sendMessage } from '../utils/coolSms.js';
-import generate4DigitRandom from '../utils/random.js';
 import bcrypt from 'bcrypt';
 
 //OTP 발송

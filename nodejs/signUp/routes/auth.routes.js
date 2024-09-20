@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { signUp, getUserData, login, verifyCurrentPassword, updatePassword, deleteUser } from '../controllers/auth.controller.js';
+import { protectedRout, signUp, getUserData, login, verifyCurrentPassword, updatePassword, deleteUser, logout } from '../controllers/auth.controller.js';
 import { authenticateToken } from '../middleware/authenticateToken.js';
 
 const router = Router();
@@ -21,5 +21,11 @@ router.post('/reset-password/update', authenticateToken, updatePassword);
 
 // 회원 삭제 경로 (JWT 인증 필요)
 router.delete('/delete', authenticateToken, deleteUser);
+
+// 로그아웃 경로
+router.post('/logout', authenticateToken, logout);
+
+// 보호된 경로 추가 (JWT 인증 필요)
+router.get('/protected', authenticateToken, protectedRout);
 
 export default router;

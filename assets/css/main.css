@@ -2674,3 +2674,14 @@ button,
   border: solid 3px #68decd;
   background-color: #c3fff641;
 }
+
+input[type="checkbox"] {
+  width: auto;
+  margin-right: 10px;
+}
+
+.input-box label {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
