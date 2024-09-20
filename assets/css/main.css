@@ -2651,12 +2651,25 @@ button,
   font-size: 25px;
   font-weight: 600;
   color: #505152;
+}
+
+.mypage-item a {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border-bottom: 0;
+  color: #505152;
+  text-decoration: none;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   align-content: center;
 }
+
+  a:hover {
+    color: #505152 !important;
+  }
 
 .mypage-item p {
   margin: 0;
@@ -2675,13 +2688,29 @@ button,
   background-color: #c3fff641;
 }
 
-input[type="checkbox"] {
-  width: auto;
-  margin-right: 10px;
+/* event 등록 */
+#event {
+  color:#3d4449;
+  font-size: 17px;
+  font-weight: 600;
 }
 
-.input-box label {
+#eventForm {
   display: flex;
-  align-items: center;
-  justify-content: start;
+  flex-wrap: wrap;
+}
+
+#eventForm input {
+  margin-left: 10px;
+}
+
+#eventForm input[type="text"] {
+  width: 90%;
+}
+
+#eventForm input[type="date"] {
+  height: 50px;
+  width: 20%;
+  position: relative;
+  top: 20px;
 }

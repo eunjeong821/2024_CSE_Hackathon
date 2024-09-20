@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가게 등록</title>
+    <style>
+        /* 여기에 스타일 추가 */
+    </style>
+</head>
+<body>
+    <h1>첫화면</h1>
+    <!-- 가게 등록 버튼 추가 -->
+    <button id="registerButton">가게 등록</button>  
+    <!-- 가게 찾기 버튼 추가 -->
+    <button id="findStoresButton">가게 찾기</button>
+
+
+    <script>
+        document.getElementById('registerButton').addEventListener('click', function() {
+            window.location.href = 'shopRegister.html'; // shopRegister.html로 이동
+        });
+
+        document.getElementById('findStoresButton').addEventListener('click', function() {
+            window.location.href = 'nearByStore.html'; // nearByStore.html로 이동
+        });
+    </script>
+</body>
+</html>
