@@ -195,28 +195,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const eventId = eventInfo.id; // 행사 ID
 
 
-                // 이미 찜한 행사인지 확인
-                const { data: existingLikes, error: likeCheckError } = await supabase
-                    .from('user_likes')
-                    .select('*')
-                    .eq('user_id', currentUserId)
-                    .eq('event_id', eventId)
-                    .single();
-
-                if (likeCheckError) {
-                    console.error('찜하기 확인 오류:', likeCheckError);
-                    alert('찜하기에 실패했습니다. 다시 시도해주세요.');
-                    return;
-                }
-
-                if (existingLikes) {
-                    alert('이미 행사를 찜했습니다.');
-                    return;
-                }
-
+                 // 찜하기를 시도
                 const { data, error } = await supabase
-                    .from('user_likes')
-                    .insert([{ user_id: currentUserId, event_id: eventId }]);
+                .from('user_likes')
+                .insert([{ user_id: currentUserId, event_id: eventId }]);
 
                 if (error) {
                     console.error('찜하기 실패:', error);
