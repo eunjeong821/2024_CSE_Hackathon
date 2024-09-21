@@ -1,4 +1,8 @@
 # 다이마루는 강쥐 - 오하린
+<div align="center">
+    <img src="image/로고.jpg" alt="로고" width="300" />
+</div>
+
 ## 서비스 요약
 오하린 - 근처 오프라인 매장의 할인 정보를 알려주는 서비스
 
