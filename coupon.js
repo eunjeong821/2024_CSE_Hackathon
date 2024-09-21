@@ -42,7 +42,8 @@ export const generateCouponCode = () => {
 };
 
 // 쿠폰 폼 제출 시
-document.getElementById('couponForm').onsubmit = async function(event) {
+document.getElementById('submitCouponBtn').addEventListener('click', async function() {
+
     event.preventDefault(); // 기본 폼 제출 방지
 
     const couponCode = generateCouponCode(); // 랜덤 쿠폰 코드 생성
@@ -93,4 +94,4 @@ document.getElementById('couponForm').onsubmit = async function(event) {
         document.getElementById('expirationDate').value = '';
         document.getElementById('conditions').value = '';
     }
-};
+});

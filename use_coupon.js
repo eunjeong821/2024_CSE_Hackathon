@@ -53,7 +53,6 @@ const loadCoupons = async () => {
 
     // 쿠폰 목록 표시
     const couponList = document.getElementById('couponList');
-    couponList.innerHTML = ''; // 기존 내용 초기화
 
     coupons.forEach(coupon => {
         const userCoupon = userCoupons.find(uc => uc.code === coupon.code);
