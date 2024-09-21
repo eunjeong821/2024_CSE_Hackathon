@@ -1,8 +1,8 @@
-<div>
-    <img src="image/마루.png" alt="마루" width="30" />
+<div style="display: flex; align-items: center;">
+    <img src="image/마루.png" alt="마루" width="30" style="margin-right: 5px;" />
+    <h1>다이마루는 강쥐 - 오하린</h1>
 </div>
 
-# 다이마루는 강쥐 - 오하린
 <div align="center">
     <img src="image/로고.jpg" alt="로고" width="300" />
 </div>
