@@ -1,7 +1,38 @@
 import supabase from './shopRegister.js';
-const userId = '4c639282-f168-4d06-89f6-b62539165ad3'; // 로그인한 사용자 ID로 대체
+
+
+// 사용자 ID 가져오기
+const getUserId = async () => {
+    const token = localStorage.getItem('token'); // JWT 토큰 가져오기
+    if (token) {
+        const response = await fetch('http://localhost:3000/api/mypage', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}` // 유효한 JWT 토큰
+            }
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('사용자 ID 조회 실패:', errorText);
+            return null;
+        }
+
+        const user = await response.json();
+        return user.id; // 사용자 ID 반환
+    } else {
+        console.error('사용자가 로그인하지 않았습니다.');
+        return null;
+    }
+};
 
 (async () => {
+    const userId = await getUserId(); // 사용자 ID 가져오기
+
+    if (!userId) {
+        console.error('사용자 ID를 가져오는 데 실패했습니다.');
+        return; // 사용자 ID가 없으면 함수 종료
+    }
   // 찜 취소 기능
   window.unlikeEvent = async function (eventId) {
     const { data, error } = await supabase
