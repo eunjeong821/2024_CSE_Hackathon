@@ -34,11 +34,7 @@
                                             <button type="submit">행사 등록</button>
                                         </div>
                                     </div>
-
-                                    <h4>만료된 이벤트 삭제</h4>
 									
-                                    <button id="deleteExpiredEventsBtn">만료된 이벤트 삭제</button>
-
 									<hr class="dividing-line">
 
 
@@ -120,5 +116,46 @@
             <!-- 모듈로 로드 -->
             <script type="module" src="coupon.js"></script>
             <script type="module" src="event.js"></script>
+			<script>
+				//		<!-- 토큰 확인 및 요청 처리 -->
+				document.addEventListener('DOMContentLoaded', async function () {
+					const token = localStorage.getItem('token');  // 저장된 토큰 불러오기
+		
+					if (token) {
+						try {
+							const response = await fetch('http://localhost:3000/api/protected', {
+								method: 'GET',
+								headers: {
+									'Authorization': `Bearer ${token}`,  // 토큰을 Authorization 헤더에 추가
+								},
+							});
+		
+							if (response.ok) {
+								const data = await response.json();
+								console.log('데이터:', data);  // 데이터 처리
+							} else {
+								console.log(token);
+								alert('인증 실패');
+								window.location.href = 'login.html';  // 인증 실패 시 로그인 페이지로 리다이렉트
+							}
+						} catch (error) {
+							console.error('에러 발생', error);
+						}
+					} else {
+						alert('로그인이 필요합니다');
+						window.location.href = 'login.html';  // 토큰이 없으면 로그인 페이지로 리다이렉션
+					}
+				});
+		
+				// 페이지가 로드될 때 토큰 확인
+				window.onload = function () {
+					const token = localStorage.getItem('token');
+		
+					if (!token || token === "undefined") {
+						alert('로그인이 필요합니다.');
+						window.location.href = 'login.html';  // 토큰이 없으면 로그인 페이지로 이동
+					}
+				};
+			</script>
 	</body>
 </html>
