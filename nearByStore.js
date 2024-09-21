@@ -83,9 +83,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     const coupons = await fetchCouponsByPhoneNumber(phoneNumber); // 쿠폰 정보 가져오기
 
                     const content = `
-                        <div style="padding:10px;">
-                            <strong>${store.store_name}</strong><br>
-                            ${store.introduction}<br>
+                        <div class="store-marker">
+                            <h2>${store.store_name}</h2><br>
+                            <p>${store.introduction}</p><br>
                             <button id="closeInfoWindow">닫기</button>
                         </div>
                     `;

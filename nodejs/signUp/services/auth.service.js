@@ -120,6 +120,20 @@ export const hashPassword = async (password) => {
   return await bcrypt.hash(password, saltRounds);
 };
 
+// 유저 이름 업데이트
+export const updateUserNickname = async (userId, newNickname) => {
+  const { data, error } = await supabase
+    .from('users')
+    .update({ nickname: newNickname })
+    .eq('id', userId);  // 사용자 ID에 해당하는 행 업데이트
+
+  if (error) {
+    throw new Error("비밀번호 업데이트 실패: " + error.message);
+  }
+
+  return data;
+};
+
 // 비밀번호 업데이트
 export const updateUserPassword = async (userId, hashedPassword) => {
   const { data, error } = await supabase

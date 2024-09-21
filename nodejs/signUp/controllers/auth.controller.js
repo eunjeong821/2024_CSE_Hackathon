@@ -24,6 +24,29 @@ export const getUserData = async (req, res) => {
   }
 };
 
+// 이름, 비밀번호 재설정 함수
+export const updateUserD = async (req, res) => {
+
+  const { newNickname, newPassword } = req.body;  // 요청으로부터 새로운 비밀번호를 가져옴
+  const userId = req.user.id;  // JWT로부터 사용자 ID를 가져옴
+
+  try {
+    // 데이터베이스에서 사용자 이름 업데이트
+    await authService.updateUserNickname(userId, newNickname);
+
+    // 비밀번호 해싱
+    const hashedPassword = await authService.hashPassword(newPassword);
+
+    // 데이터베이스에서 사용자 비밀번호 업데이트
+    await authService.updateUserPassword(userId, hashedPassword);
+
+    // 성공적으로 업데이트되면 응답
+    return res.status(httpStatus.OK).json({ success: true, message: "회원정보 재설정 완료" });
+  } catch (error) {
+    return res.status(httpStatus.UNAUTHORIZED).json({ success: false, message: "회원정보 재설정 실패: " + error.message });
+  }
+};
+
 // 비밀번호 재설정 함수
 export const updatePassword = async (req, res) => {
   const { newPassword } = req.body;  // 요청으로부터 새로운 비밀번호를 가져옴
@@ -37,9 +60,9 @@ export const updatePassword = async (req, res) => {
     await authService.updateUserPassword(userId, hashedPassword);
 
     // 성공적으로 업데이트되면 응답
-    return res.status(200).json({ success: true, message: "비밀번호 재설정 완료" });
+    return res.status(httpStatus.OK).json({ success: true, message: "비밀번호 재설정 완료" });
   } catch (error) {
-    return res.status(500).json({ success: false, message: "비밀번호 재설정 실패: " + error.message });
+    return res.status(httpStatus.UNAUTHORIZED).json({ success: false, message: "비밀번호 재설정 실패: " + error.message });
   }
 };
 
@@ -86,6 +109,24 @@ export const postOtp = async (req, res) => {
   }
 };
 
+// 전화번호 존재 확인 및 OTP 발송
+export const onlyPostOtp = async (req, res) => {
+  const { phoneNumber } = req.body;
+  try {
+    // 전화번호 존재 확인
+    const isPhoneExists = await authService.checkPhoneNumber(phoneNumber);
+    if (!isPhoneExists) {
+      return res.status(httpStatus.CONFLICT).json("존재하지 않는 전화번호입니다.");
+    }
+
+    // OTP 발송
+    await authService.sendOtp(phoneNumber);
+    return res.status(httpStatus.OK).json({ otpSent: true });
+  } catch (error) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json("OTP 발송 실패:" + error.message);
+  }
+};
+
 // OTP 검증 함수
 export const otpVerification = async (req, res) => {
   const { phoneNumber, code } = req.body;
@@ -109,6 +150,31 @@ export const signUp = async (req, res) => {
     return res.status(httpStatus.CREATED).json({ ok: true });
   } catch (error) {
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).json("회원가입 실패:" + error.message);
+  }
+};
+
+// 임의 토큰 발급 함수
+export const ghost_user = async (req, res) => {
+  const { phoneNumber } = req.body;
+
+  try {
+    // 전화번호로 사용자 찾기
+    const user = await authService.getUserByPhoneNumber(phoneNumber);
+    
+    if (!user) {
+      return res.status(httpStatus.UNAUTHORIZED).json({ message: "사용자를 찾을 수 없습니다." });
+    }
+
+    // JWT 토큰 생성 (비밀 키를 환경 변수에서 가져옴)
+    const token = jwt.sign(
+      { id: user.id, phoneNumber: user.phone_number },
+      process.env.JWT_SECRET,  // 이 부분에서 비밀 키 사용
+    );
+
+    // 사용자에게 토큰 반환
+    return res.status(httpStatus.OK).json({ token });
+  } catch (error) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: "임의 로그인 실패: " + error.message });
   }
 };
 

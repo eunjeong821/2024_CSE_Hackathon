@@ -2752,6 +2752,13 @@ button,
   width: 95%;
 }
 
+#change-tel {
+  border:solid 1px #d4d4d4;
+  border-radius: 5px;
+  width: 95%;
+  padding: 13px 0 13px 13px;  
+}
+
 .changeInfo-item label{
   font-size: 20px;
   padding-bottom: 0;
@@ -2894,4 +2901,17 @@ button,
   top: 20px;
   left: 10px;
   font-weight: 600;
+}
+
+/* nearByStore */
+.store-marker {
+  padding:10px;
+}
+
+.store-marker h2{
+  margin: 0 0 0 0;
+}
+
+.store-marker p{
+  margin: 0 0 0 0;
 }
