@@ -1,5 +1,5 @@
 import supabase from './shopRegister.js'; // 경로가 올바른지 확인
-const  userId= '8c505c10-a684-4de9-9b80-c4344612ab49'; // 로그인한 사용자 ID로 대체
+const  userId= '4c639282-f168-4d06-89f6-b62539165ad3'; // 로그인한 사용자 ID로 대체
 
 
 document.addEventListener('DOMContentLoaded', function () {
