@@ -3,21 +3,24 @@ const supabaseUrl = 'https://jvntxuwgdzbwskswvigm.supabase.co'; // 자신의 Sup
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp2bnR4dXdnZHpid3Nrc3d2aWdtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjY3MDg2NTcsImV4cCI6MjA0MjI4NDY1N30.MdhtzFkiIn1_pE9wUBEMHrS_3tOQ_Rh7qpB0ZFjj2Xk'; // 실제 키로 변경
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-// 사용자 전화번호 가져오기
 const getUserPhoneNumber = async () => {
-    const user = 1; // 사용자 정보를 가져오는 함수로 대체
-    if (user) {
-        const { data, error } = await supabase
-            .from('users') // 'users' 테이블에서 조회
-            .select('phone_number') // 전화번호만 선택
-            .eq('id', '4c639282-f168-4d06-89f6-b62539165ad3') // 로그인한 사용자 ID로 조회
-            .single();
+    const token = localStorage.getItem('token'); // JWT 토큰 가져오기
+    if (token) {
+        const response = await fetch('http://localhost:3000/api/mypage', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}` // 유효한 JWT 토큰
+            }
+        });
 
-        if (error) {
-            console.error('사용자 전화번호 조회 실패:', error);
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('사용자 전화번호 조회 실패:', errorText);
             return null;
         }
-        return data.phone_number; // 전화번호 반환
+
+        const user = await response.json();
+        return user.phone_number; // 전화번호 반환
     } else {
         console.error('사용자가 로그인하지 않았습니다.');
         return null;
