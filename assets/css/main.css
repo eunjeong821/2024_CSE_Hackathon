@@ -2733,7 +2733,7 @@ button,
 
 .agree {
   margin: 0 0 0 0;
-  padding: 0 0 0 0;
+  padding: 30px 0 0 0;
 }
 
 .agree #agreeCheckbox {
@@ -2877,4 +2877,21 @@ button,
   display: flex;
   flex-wrap:wrap;
   justify-content: center;
+}
+
+/* 비번 일치 확인 */
+#isSame {
+  margin: 0 0 0 0;
+  margin-left: 5px;
+  font-weight: 600;
+  color:rgb(255, 47, 47);
+}
+
+.samePW {
+  margin: 0 0 0 0;
+  display: flex;
+  position: relative;
+  top: 20px;
+  left: 10px;
+  font-weight: 600;
 }
