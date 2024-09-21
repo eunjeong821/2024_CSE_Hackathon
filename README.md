@@ -1,6 +1,6 @@
 <div style="display: flex; align-items: center;">
     <img src="image/마루.png" alt="마루" width="30" style="margin-right: 5px;" />
-    <h1>다이마루는 강쥐 - 오하린</h1>
+    <h1 style="display:inline-block">다이마루는 강쥐 - 오하린</h1>
 </div>
 
 <div align="center">
