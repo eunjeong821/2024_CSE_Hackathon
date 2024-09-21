@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     const content = `
                         <div style="padding:10px;">
-                            <strong>${store.store_name}</strong><br>
+                            <h2>${store.store_name}</h2><br>
                             ${store.introduction}<br>
                             <button id="closeInfoWindow">닫기</button>
                         </div>
