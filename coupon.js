@@ -13,7 +13,7 @@ const getUserPhoneNumber = async () => {
         const { data, error } = await supabase
             .from('users') // 'users' 테이블에서 조회
             .select('phone_number') // 전화번호만 선택
-            .eq('id', '8c505c10-a684-4de9-9b80-c4344612ab49') // 로그인한 사용자 ID로 조회
+            .eq('id', '4c639282-f168-4d06-89f6-b62539165ad3') // 로그인한 사용자 ID로 조회
             .single();
 
         if (error) {

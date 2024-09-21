@@ -10,7 +10,7 @@ const getUserPhoneNumber = async () => {
         const { data, error } = await supabase
             .from('users') // 'users' 테이블에서 조회
             .select('phone_number') // 전화번호만 선택
-            .eq('id', 'ceef1748-dc20-465a-918c-65cc7520f023') // 로그인한 사용자 ID로 조회
+            .eq('id', '4c639282-f168-4d06-89f6-b62539165ad3') // 로그인한 사용자 ID로 조회
             .single();
 
         if (error) {
@@ -53,6 +53,7 @@ const loadCoupons = async () => {
 
     // 쿠폰 목록 표시
     const couponList = document.getElementById('couponList');
+    couponList.innerHTML = ''; // 기존 내용 초기화
 
     coupons.forEach(coupon => {
         const userCoupon = userCoupons.find(uc => uc.code === coupon.code);
