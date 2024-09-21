@@ -1,3 +1,6 @@
+<div>
+    <img src="image/마루.jpg" alt="마루" width="30" />
+</div>
 # 다이마루는 강쥐 - 오하린
 <div align="center">
     <img src="image/로고.jpg" alt="로고" width="300" />
