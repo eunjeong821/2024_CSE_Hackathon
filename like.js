@@ -1,5 +1,6 @@
 
 import supabase from './shopRegister.js';
+const  userId= '8c505c10-a684-4de9-9b80-c4344612ab49'; // 로그인한 사용자 ID로 대체
 
 (async () => {
   // 행사 목록 가져오기
@@ -19,7 +20,7 @@ import supabase from './shopRegister.js';
   window.likeEvent = async function(eventId) {
       const { data, error } = await supabase
           .from('user_likes')
-          .insert([{ user_id: currentUserId, event_id: eventId }]);
+          .insert([{ user_id: userId, event_id: eventId }]);
 
       if (error) {
           console.error('Error liking event:', error);
@@ -34,7 +35,7 @@ import supabase from './shopRegister.js';
       const { data, error } = await supabase
           .from('user_likes')
           .delete()
-          .match({ user_id: currentUserId, event_id: eventId });
+          .match({ user_id: userId, event_id: eventId });
 
       if (error) {
           console.error('Error unliking event:', error);
@@ -49,7 +50,7 @@ import supabase from './shopRegister.js';
       const { data, error } = await supabase
           .from('user_likes')
           .select('event_id, events(name, start_date, end_date, description)')
-          .eq('user_id', currentUserId);
+          .eq('user_id', userId);
 
       if (error) {
           console.error('Error fetching liked events:', error);
