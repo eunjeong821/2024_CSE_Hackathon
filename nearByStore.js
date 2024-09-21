@@ -1,5 +1,4 @@
 import supabase from './shopRegister.js'; // 경로가 올바른지 확인
-const  userId= '4c639282-f168-4d06-89f6-b62539165ad3'; // 로그인한 사용자 ID로 대체
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -160,6 +159,33 @@ document.addEventListener('DOMContentLoaded', function () {
         return data; // 쿠폰 정보 반환
     }
 
+// 사용자 ID 가져오기
+const getUserId = async () => {
+    const token = localStorage.getItem('token'); // JWT 토큰 가져오기
+    if (token) {
+        const response = await fetch('http://localhost:3000/api/mypage', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}` // 유효한 JWT 토큰
+            }
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('사용자 ID 조회 실패:', errorText);
+            return null;
+        }
+
+        const user = await response.json();
+        return user.id; // 사용자 ID 반환
+    } else {
+        console.error('사용자가 로그인하지 않았습니다.');
+        return null;
+    }
+};
+
+
+
     // 사용자 전화번호 가져오기
     const getUserPhoneNumber = async () => {
         const { data, error } = await supabase
@@ -191,9 +217,8 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
 
             document.getElementById('likeButton').addEventListener('click', async function() {
-                const currentUserId = userId; // 현재 로그인한 사용자 ID로 변경 필요
                 const eventId = eventInfo.id; // 행사 ID
-
+                const currentUserId = await getUserId(); // 사용자 ID 가져오기
 
                  // 찜하기를 시도
                 const { data, error } = await supabase
