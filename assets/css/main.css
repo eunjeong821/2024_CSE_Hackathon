@@ -2895,3 +2895,16 @@ button,
   left: 10px;
   font-weight: 600;
 }
+
+/* nearByStore */
+.store-marker {
+  padding:10px;
+}
+
+.store-marker h2{
+  margin: 0 0 0 0;
+}
+
+.store-marker p{
+  margin: 0 0 0 0;
+}
