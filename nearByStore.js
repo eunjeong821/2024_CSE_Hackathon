@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', function () {
     var storeMarkers = []; // 가게 마커를 저장할 배열
     var infoWindow = new kakao.maps.InfoWindow({ zIndex: 1 }); // 인포윈도우 생성
 
+    // 행사 정보 표시할 div
+    const eventInfoDiv = document.getElementById('eventInfo');
+    const couponInfoDiv = document.getElementById('couponInfo'); // 쿠폰 정보 표시할 div
+
     // 현재 위치 가져오기 및 마커 표시
     function getCurrentLocation() {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -74,27 +78,31 @@ document.addEventListener('DOMContentLoaded', function () {
                 kakao.maps.event.addListener(storeMarker, 'click', async function () {
                     const phoneNumber = store.phone_number; // 전화번호 가져오기
                     const eventInfo = await fetchEventByPhoneNumber(phoneNumber); // 전화번호로 행사 정보 가져오기
+                    const coupons = await fetchCouponsByPhoneNumber(phoneNumber); // 쿠폰 정보 가져오기
 
-                    // 행사 정보 표시
-                    displayEventInfo(eventInfo);
-
-                    // 인포윈도우 내용 설정
                     const content = `
-                        <div style="position: relative; padding: 10px;">
+                        <div style="padding:10px;">
                             <strong>${store.store_name}</strong><br>
-                            <p>${store.introduction}</p>
-                            <button id="closeInfoWindow" style="position: absolute; top: 5px; right: 5px; background: red; color: white; border: none; border-radius: 5px; cursor: pointer;">X</button> <!-- 닫기 버튼 스타일링 -->
+                            ${store.introduction}<br>
+                            <button id="closeInfoWindow">닫기</button>
                         </div>
                     `;
-
-                    infoWindow.setContent(content); // 인포윈도우에 내용 설정
-                    infoWindow.setPosition(storePosition); // 인포윈도우 위치 설정
-                    infoWindow.setMap(map); // 인포윈도우 맵에 추가
+                    infoWindow.setContent(content);
+                    infoWindow.setPosition(storePosition);
+                    infoWindow.setMap(map);
 
                     // 닫기 버튼 클릭 이벤트 리스너 추가
                     document.getElementById('closeInfoWindow').addEventListener('click', function () {
                         infoWindow.setMap(null); // 인포윈도우 닫기
+                        eventInfoDiv.innerHTML = ''; // 행사 정보 초기화
+                        couponInfoDiv.innerHTML = ''; // 쿠폰 정보 초기화
                     });
+
+                    // 행사 정보 표시
+                    displayEventInfo(eventInfo);
+
+                    // 쿠폰 정보 표시
+                    displayCouponInfo(coupons);
                 });
 
                 // 마커를 배열에 추가
@@ -135,18 +143,84 @@ document.addEventListener('DOMContentLoaded', function () {
         return data; // 행사 정보 반환
     }
 
+    // 전화번호로 쿠폰 정보를 가져오는 함수
+    async function fetchCouponsByPhoneNumber(phoneNumber) {
+        const { data, error } = await supabase
+            .from('coupons') // 'coupons' 테이블에서 조회
+            .select('*')
+            .eq('phone_number', phoneNumber); // 전화번호로 조회
+
+        if (error) {
+            console.error('쿠폰 정보를 가져오는 중 오류 발생:', error);
+            return [];
+        }
+
+        return data; // 쿠폰 정보 반환
+    }
+
     // 행사 정보를 div에 표시하는 함수
     function displayEventInfo(eventInfo) {
-        const eventInfoDiv = document.getElementById('eventInfo'); // 행사 정보 표시할 div
         if (eventInfo) {
             eventInfoDiv.innerHTML = `
-                <strong>행사 이름:</strong> ${eventInfo.name}<br>
-                <strong>시작일:</strong> ${eventInfo.start_date}<br>
-                <strong>종료일:</strong> ${eventInfo.end_date}<br>
-                <strong>내용:</strong> ${eventInfo.description}
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
+                    <div>
+                        <strong>행사 이름:</strong> ${eventInfo.name}<br>
+                        <strong>시작일:</strong> ${eventInfo.start_date}<br>
+                        <strong>종료일:</strong> ${eventInfo.end_date}<br>
+                        <strong>내용:</strong> ${eventInfo.description}
+                    </div>
+                    <button id="likeButton" style="margin-left: 10px;">찜하기</button>
+                </div>
             `;
+
+
+            document.getElementById('likeButton').addEventListener('click', function() {
+                // 찜하기 로직 추가
+                alert(`${eventInfo.name}이(가) 찜되었습니다!`);
+            });
         } else {
-            eventInfoDiv.innerHTML = '행사 정보가 없습니다.';
+            eventInfoDiv.innerHTML = `
+                <div style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
+                    행사 정보가 없습니다.
+                </div>
+            `;
+        }
+    }
+
+    // 쿠폰 정보를 div에 표시하는 함수
+    function displayCouponInfo(coupons) {
+        if (coupons.length > 0) {
+            couponInfoDiv.innerHTML = `
+                <div style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
+                    <strong>쿠폰 목록:</strong><br>
+                    <ul>
+                        ${coupons.map(coupon => `
+                            <li style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <strong>${coupon.name}</strong><br>
+                                    조건: ${coupon.conditions}<br>
+                                    할인율: ${coupon.discount}%
+                                </div>
+                                <button class="issue-coupon" data-coupon-id="${coupon.id}" style="margin-left: 10px;">발급하기</button>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+
+            document.querySelectorAll('.issue-coupon').forEach(button => {
+                button.addEventListener('click', function () {
+                    alert('쿠폰이 발급되었습니다!');
+                });
+            });
+
+
+        } else {
+            couponInfoDiv.innerHTML = `
+                <div style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
+                    쿠폰 정보가 없습니다.
+                </div>
+            `;
         }
     }
 
@@ -158,14 +232,29 @@ document.addEventListener('DOMContentLoaded', function () {
         const lon = locPosition.getLng();
         fetchNearbyStores(lat, lon); // 주변 가게 가져오기
 
-        // 지도 레벨을 4로 조정
-        map.setLevel(3);
+        // 선택된 범위에 따라 지도 레벨 설정
+        const selectedRange = parseInt(document.getElementById('rangeSelect').value);
+        let mapLevel;
+
+        // 지도 레벨 설정
+        if (selectedRange === 1) {
+            mapLevel = 3;
+        } else if (selectedRange === 5) {
+            mapLevel = 5;
+        } else if (selectedRange === 10) {
+            mapLevel = 7;
+        }
+
+        map.setLevel(mapLevel); // 지도 레벨 설정
     });
 
-    // 현재
-
+    // 지도 클릭 시 인포윈도우 닫기     
+    kakao.maps.event.addListener(map, 'click', function () {
+        infoWindow.setMap(null); // 인포윈도우 닫기
+        eventInfoDiv.innerHTML = ''; // 행사 정보 초기화
+        couponInfoDiv.innerHTML = ''; // 쿠폰 정보 초기화
+    });
 
     // 현재 위치 가져오기
     getCurrentLocation();
 });
-    
