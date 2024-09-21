@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ghost_user, protectedRout, signUp, getUserData, login, verifyCurrentPassword, updatePassword, deleteUser, logout } from '../controllers/auth.controller.js';
+import { updateUserD, ghost_user, protectedRout, signUp, getUserData, login, verifyCurrentPassword, updatePassword, deleteUser, logout } from '../controllers/auth.controller.js';
 import { authenticateToken } from '../middleware/authenticateToken.js';
 
 const router = Router();
@@ -18,6 +18,9 @@ router.post('/login_ghost', ghost_user);
 
 // 현재 비밀번호 확인 경로
 router.post('/reset-password/verify-current-password', authenticateToken, verifyCurrentPassword);
+
+// 유저 정보 업데이트 경로
+router.post('/reset-user/update', authenticateToken, updateUserD);
 
 // 비밀번호 업데이트 경로
 router.post('/reset-password/update', authenticateToken, updatePassword);

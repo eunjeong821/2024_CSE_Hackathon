@@ -24,6 +24,29 @@ export const getUserData = async (req, res) => {
   }
 };
 
+// 이름, 비밀번호 재설정 함수
+export const updateUserD = async (req, res) => {
+
+  const { newNickname, newPassword } = req.body;  // 요청으로부터 새로운 비밀번호를 가져옴
+  const userId = req.user.id;  // JWT로부터 사용자 ID를 가져옴
+
+  try {
+    // 데이터베이스에서 사용자 이름 업데이트
+    await authService.updateUserNickname(userId, newNickname);
+
+    // 비밀번호 해싱
+    const hashedPassword = await authService.hashPassword(newPassword);
+
+    // 데이터베이스에서 사용자 비밀번호 업데이트
+    await authService.updateUserPassword(userId, hashedPassword);
+
+    // 성공적으로 업데이트되면 응답
+    return res.status(httpStatus.OK).json({ success: true, message: "회원정보 재설정 완료" });
+  } catch (error) {
+    return res.status(httpStatus.UNAUTHORIZED).json({ success: false, message: "회원정보 재설정 실패: " + error.message });
+  }
+};
+
 // 비밀번호 재설정 함수
 export const updatePassword = async (req, res) => {
   const { newPassword } = req.body;  // 요청으로부터 새로운 비밀번호를 가져옴
