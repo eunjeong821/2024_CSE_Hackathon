@@ -34,7 +34,7 @@ const getUserId = async () => {
         return; // 사용자 ID가 없으면 함수 종료
     }
   // 찜 취소 기능
-  window.unlikeEvent = async function (eventId) {
+    window.unlikeEvent = async function (eventId) {
     const { data, error } = await supabase
       .from('user_likes')
       .delete()
