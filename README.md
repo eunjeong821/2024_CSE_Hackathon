@@ -1,5 +1,5 @@
 <div>
-    <img src="image/마루.jpg" alt="마루" width="30" />
+    <img src="image/마루.png" alt="마루" width="30" />
 </div>
 # 다이마루는 강쥐 - 오하린
 <div align="center">
