@@ -84,8 +84,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     const content = `
                         <div class="store-marker">
-                            <h2>${store.store_name}</h2><br>
-                            <p>${store.introduction}</p><br>
+                            <h2>${store.store_name}</h2>
+                            <p>${store.introduction}</p>
                             <button id="closeInfoWindow">닫기</button>
                         </div>
                     `;

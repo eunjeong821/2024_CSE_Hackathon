@@ -26,11 +26,11 @@
                                     <div id="eventWrap">
                                         <h2>할인 행사 등록</h2>
                                         <form id="eventForm" onsubmit="return false;">
-                                            <p>행사 이름:</p> <input type="text" id="eventName" placeholder="행사 이름을 입력하세요" required><br>
-                                            <p>행사 기간:</p> <input type="date" id="startDate" required><p style="position: relative; top: 10px; left: 5px;">~</p><input type="date" id="endDate" style="margin-right: 45%;" required><br>
-                                            <p>행사 소개:</p> <textarea id="eventDescription" placeholder="행사 소개를 입력하세요" required></textarea><br>
+                                            <p>행사 이름:</p> <input type="text" id="eventName" placeholder="행사 이름을 입력하세요" required><br><br>
+                                            <p>행사 기간:</p> <input type="date" id="startDate" required><p style="position: relative; top: 10px; left: 5px;">~</p><input type="date" id="endDate" style="margin-right: 45%;" required><br><br>
+                                            <p>행사 소개:</p> <textarea id="eventDescription" placeholder="행사 소개를 입력하세요" required></textarea><br><br>
                                         </form>
-                                        <div class="rightButton" style="position:relative; bottom:20px;">
+                                        <div class="rightButton" style="position:relative; bottom:10px;">
                                             <button id="submitEventBtn" type="submit">행사 등록</button>
                                         </div>
                                     </div>
@@ -42,10 +42,10 @@
                                     <div id="couponWrap">
                                         <h2>쿠폰 등록</h2>
                                         <form id="couponForm" onsubmit="return false;">
-                                            <p>쿠폰 이름:</p> <input type="text" id="name" placeholder="쿠폰 이름" required>
-                                            <p style="margin-left: 24px;">할인율:</p> <input type="number" id="discount" placeholder="할인율 (%)" style="margin-right: 70%;" required>
-                                            <p>유효 기간:</p> <input type="date" id="expirationDate" style="margin-right: 70%;" required>
-                                            <p>사용 조건:</p> <input type="text" id="conditions" placeholder="사용 조건">
+                                            <p>쿠폰 이름:</p> <input type="text" id="name" placeholder="쿠폰 이름" required> <br><br>
+                                            <p style="margin-left: 24px;">할인율:</p> <input type="number" id="discount" placeholder="할인율 (%)" style="margin-right: 70%;" required><br><br>
+                                            <p>유효 기간:</p> <input type="date" id="expirationDate" style="margin-right: 70%;" required><br><br>
+                                            <p>사용 조건:</p> <input type="text" id="conditions" placeholder="사용 조건"><br><br>
                                         </form>
                                         <div class="rightButton" style="position:relative; bottom:20px;">
 											<button type="submit" id="submitCouponBtn">쿠폰 등록</button>

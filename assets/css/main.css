@@ -50,11 +50,18 @@ input::-moz-focus-inner {
   border: 0;
   padding: 0; }
 
-input, select, textarea {
+input, select {
   -moz-appearance: none;
   -webkit-appearance: none;
   -ms-appearance: none;
   appearance: none; }
+
+textarea {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    resize: none; }
 
 /* Basic */
 @-ms-viewport {
@@ -2695,7 +2702,7 @@ button,
 }
 
 #eventForm input[type="date"] {
-  height: 50px;
+  height: 40px;
   width: 20%;
 }
 
@@ -2727,7 +2734,7 @@ button,
 }
 
 #couponForm input[type="date"], [type="number"] {
-  height: 50px;
+  height: 40px;
   width: 20%;
 }
 
@@ -2905,13 +2912,14 @@ button,
 
 /* nearByStore */
 .store-marker {
-  padding:10px;
+  padding: 10px 10px 10px 10px;
 }
 
-.store-marker h2{
-  margin: 0 0 0 0;
+.store-marker h2, p{
+  margin: 3px 0 3px 0;
 }
 
-.store-marker p{
-  margin: 0 0 0 0;
+.store-marker button{
+  margin: 3px 0 3px 0;
 }
+
