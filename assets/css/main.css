@@ -2809,18 +2809,18 @@ button,
   bottom: 2px;
 }
 
-.rangeSetting {
+.subHeader {
   display: flex;
 }
 
-.rangeSetting label {
+.subHeader label {
   font-size: 20px;
   font-weight: 600;
   color:#5d5d5d;
   margin-bottom: 3px;
 }
 
-.rangeSetting select {
+.subHeader select {
   width: 30%;
   margin-left: 10px;
 }

@@ -195,28 +195,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const eventId = eventInfo.id; // 행사 ID
 
 
-                // 이미 찜한 행사인지 확인
-                const { data: existingLikes, error: likeCheckError } = await supabase
-                    .from('user_likes')
-                    .select('*')
-                    .eq('user_id', currentUserId)
-                    .eq('event_id', eventId)
-                    .single();
-
-                if (likeCheckError) {
-                    console.error('찜하기 확인 오류:', likeCheckError);
-                    alert('찜하기에 실패했습니다. 다시 시도해주세요.');
-                    return;
-                }
-
-                if (existingLikes) {
-                    alert('이미 행사를 찜했습니다.');
-                    return;
-                }
-
+                 // 찜하기를 시도
                 const { data, error } = await supabase
-                    .from('user_likes')
-                    .insert([{ user_id: currentUserId, event_id: eventId }]);
+                .from('user_likes')
+                .insert([{ user_id: currentUserId, event_id: eventId }]);
 
                 if (error) {
                     console.error('찜하기 실패:', error);
@@ -248,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     조건: ${coupon.conditions}<br>
                                     할인율: ${coupon.discount}%
                                 </div>
-                                <button class="issue-coupon" data-coupon-id="${coupon.id}" style="margin-left: 10px;">발급하기</button>
+                                <button class="issue-coupon" data-coupon-code="${coupon.code}" style="margin-left: 10px;">발급하기</button>
                             </li>
                         `).join('')}
                     </ul>
@@ -258,7 +240,8 @@ document.addEventListener('DOMContentLoaded', function () {
             // 쿠폰 발급 버튼 클릭 이벤트 리스너 추가
             document.querySelectorAll('.issue-coupon').forEach(button => {
                 button.addEventListener('click', async function () {
-                    const couponId = this.getAttribute('data-coupon-id');
+                    const couponCode = this.getAttribute('data-coupon-code'); // 쿠폰 코드 가져오기
+                    console.log('가져온 쿠폰 코드:', couponCode); // 디버깅을 위한 출력
                     const phoneNumber = await getUserPhoneNumber(); // 사용자 전화번호 가져오기
 
                      // 동일한 쿠폰이 이미 발급된 경우 확인
@@ -266,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         .from('user_coupon')
                         .select('*')
                         .eq('phone_number', phoneNumber)
-                        .eq('code', couponId)
+                        .eq('code', couponCode)
                         .single();
 
                         if (couponCheckError && couponCheckError.code !== 'PGRST116') {
@@ -286,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             .from('user_coupon')
                             .insert([
                                 { 
-                                    code: couponId,  // 쿠폰 ID를 코드로 사용
+                                    code: couponCode, 
                                     phone_number: phoneNumber,
                                     used: false // 기본적으로 사용되지 않음
                                 }
