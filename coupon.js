@@ -6,26 +6,7 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey); 
 
 
-// 사용자 전화번호 가져오기
-const getUserPhoneNumber = async () => {
-    const user = 1; // 사용자 정보를 가져오는 함수로 대체
-    if (user) {
-        const { data, error } = await supabase
-            .from('users') // 'users' 테이블에서 조회
-            .select('phone_number') // 전화번호만 선택
-            .eq('id', '4c639282-f168-4d06-89f6-b62539165ad3') // 로그인한 사용자 ID로 조회
-            .single();
 
-        if (error) {
-            console.error('사용자 전화번호 조회 실패:', error);
-            return null;
-        }
-        return data.phone_number; // 전화번호 반환
-    } else {
-        console.error('사용자가 로그인하지 않았습니다.');
-        return null;
-    }
-};
 
 // 랜덤 쿠폰 코드 생성 함수
 export const generateCouponCode = () => {
@@ -53,8 +34,25 @@ document.getElementById('submitCouponBtn').addEventListener('click', async funct
     const conditions = document.getElementById('conditions').value;
 
     // 사용자 전화번호 가져오기
-    const phoneNumber = await getUserPhoneNumber();
 
+    const token = localStorage.getItem('token'); // 여기서 JWT 토큰을 가져옵니다.
+    const response = await fetch('http://localhost:3000/api/mypage', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}` // 유효한 JWT 토큰
+        }
+    });
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Error:', errorText);
+        alert('사용자 정보를 가져오는 데 실패했습니다.');
+        throw new Error('사용자 정보를 가져오는 데 실패했습니다.');
+    }
+
+    const user = await response.json();
+    const phoneNumber = user.phone_number; 
+    
     // 쿠폰 등록
     const { data: couponData, error: couponError } = await supabase
         .from('coupons')
@@ -64,7 +62,8 @@ document.getElementById('submitCouponBtn').addEventListener('click', async funct
                 name: name,
                 discount: discount, 
                 expiration_date: expirationDate, 
-                conditions: conditions
+                conditions: conditions,
+                phone_number: phoneNumber
             }
         ]);
 
