@@ -2752,6 +2752,13 @@ button,
   width: 95%;
 }
 
+#change-tel {
+  border:solid 1px #d4d4d4;
+  border-radius: 5px;
+  width: 95%;
+  padding: 13px 0 13px 13px;  
+}
+
 .changeInfo-item label{
   font-size: 20px;
   padding-bottom: 0;
