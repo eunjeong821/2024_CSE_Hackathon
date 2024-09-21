@@ -1,4 +1,6 @@
 import supabase from './shopRegister.js'; // 경로가 올바른지 확인
+const  userId= '8c505c10-a684-4de9-9b80-c4344612ab49'; // 로그인한 사용자 ID로 대체
+
 
 document.addEventListener('DOMContentLoaded', function () {
     // 지도 생성
@@ -158,6 +160,21 @@ document.addEventListener('DOMContentLoaded', function () {
         return data; // 쿠폰 정보 반환
     }
 
+    // 사용자 전화번호 가져오기
+    const getUserPhoneNumber = async () => {
+        const { data, error } = await supabase
+            .from('users') // 'users' 테이블에서 조회
+            .select('phone_number') // 전화번호만 선택
+            .eq('id', userId) // 사용자 ID로 조회
+            .single();
+
+        if (error) {
+            console.error('사용자 전화번호 조회 실패:', error);
+            return null;
+        }
+        return data.phone_number; // 전화번호 반환
+    };
+
     // 행사 정보를 div에 표시하는 함수
     function displayEventInfo(eventInfo) {
         if (eventInfo) {
@@ -173,10 +190,40 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
             `;
 
+            document.getElementById('likeButton').addEventListener('click', async function() {
+                const currentUserId = userId; // 현재 로그인한 사용자 ID로 변경 필요
+                const eventId = eventInfo.id; // 행사 ID
 
-            document.getElementById('likeButton').addEventListener('click', function() {
-                // 찜하기 로직 추가
-                alert(`${eventInfo.name}이(가) 찜되었습니다!`);
+
+                // 이미 찜한 행사인지 확인
+                const { data: existingLikes, error: likeCheckError } = await supabase
+                    .from('user_likes')
+                    .select('*')
+                    .eq('user_id', currentUserId)
+                    .eq('event_id', eventId)
+                    .single();
+
+                if (likeCheckError) {
+                    console.error('찜하기 확인 오류:', likeCheckError);
+                    alert('찜하기에 실패했습니다. 다시 시도해주세요.');
+                    return;
+                }
+
+                if (existingLikes) {
+                    alert('이미 행사를 찜했습니다.');
+                    return;
+                }
+
+                const { data, error } = await supabase
+                    .from('user_likes')
+                    .insert([{ user_id: currentUserId, event_id: eventId }]);
+
+                if (error) {
+                    console.error('찜하기 실패:', error);
+                    alert('찜하기에 실패했습니다. 다시 시도해주세요.');
+                } else {
+                    alert(`${eventInfo.name}이(가) 찜되었습니다!`);
+                }
             });
         } else {
             eventInfoDiv.innerHTML = `
@@ -208,13 +255,54 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
             `;
 
+            // 쿠폰 발급 버튼 클릭 이벤트 리스너 추가
             document.querySelectorAll('.issue-coupon').forEach(button => {
-                button.addEventListener('click', function () {
-                    alert('쿠폰이 발급되었습니다!');
+                button.addEventListener('click', async function () {
+                    const couponId = this.getAttribute('data-coupon-id');
+                    const phoneNumber = await getUserPhoneNumber(); // 사용자 전화번호 가져오기
+
+                     // 동일한 쿠폰이 이미 발급된 경우 확인
+                        const { data: existingCoupon, error: couponCheckError } = await supabase
+                        .from('user_coupon')
+                        .select('*')
+                        .eq('phone_number', phoneNumber)
+                        .eq('code', couponId)
+                        .single();
+
+                        if (couponCheckError && couponCheckError.code !== 'PGRST116') {
+                        console.error('쿠폰 발급 확인 오류:', couponCheckError);
+                        alert('쿠폰 발급에 실패했습니다. 다시 시도해주세요.');
+                        return;
+                    }
+
+                    if (existingCoupon) {
+                        alert('이미 발급된 쿠폰입니다.');
+                        return;
+                    }
+
+
+                    if (phoneNumber) {
+                        const { error: userCouponError } = await supabase
+                            .from('user_coupon')
+                            .insert([
+                                { 
+                                    code: couponId,  // 쿠폰 ID를 코드로 사용
+                                    phone_number: phoneNumber,
+                                    used: false // 기본적으로 사용되지 않음
+                                }
+                            ]);
+
+                        if (userCouponError) {
+                            console.error('쿠폰 발급 실패:', userCouponError);
+                            alert('쿠폰 발급에 실패했습니다. 다시 시도해주세요.');
+                        } else {
+                            alert('쿠폰이 발급되었습니다!');
+                        }
+                    } else {
+                        alert('전화번호를 가져오는 데 실패했습니다.');
+                    }
                 });
             });
-
-
         } else {
             couponInfoDiv.innerHTML = `
                 <div style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
@@ -223,7 +311,6 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
         }
     }
-
 
     // 주변 가게 찾기 버튼 클릭 이벤트
     document.getElementById('findStoresButton').addEventListener('click', function () {
