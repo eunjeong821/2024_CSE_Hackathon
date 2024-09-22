@@ -226,7 +226,7 @@ export const deleteUserById = async (userId, userPN) => {
        // 먼저 쿠폰번호를 가져옴
     const { data: couponsData, error: couponsError } = await supabase
     .from('coupons')
-    .select('code')
+    .select('*')
     .eq('phone_number', userPN);  // Assuming 'phone_number' is the correct column name
 
   if (couponsError) {
@@ -238,7 +238,7 @@ export const deleteUserById = async (userId, userPN) => {
     const { data: userCouponDelete, error: userCouponDeleteError } = await supabase
       .from('user_coupon')
       .delete()
-      .eq('code', coupon);  // 'code'가 쿠폰번호를 참조하는 컬럼이라고 가정
+      .eq('code', coupon.code);  // 'code'가 쿠폰번호를 참조하는 컬럼이라고 가정
 
     if (userCouponDeleteError) {
       throw new Error("쿠폰 번호에 해당하는 user_coupon 삭제 실패: " + userCouponDeleteError.message);
@@ -248,7 +248,7 @@ export const deleteUserById = async (userId, userPN) => {
     // 먼저 이벤트를 조회 (회원이 생성한 이벤트)
     const { data: eventsDataList, error: eventsListError } = await supabase
       .from('events')
-      .select('id')  // 이벤트 ID 가져오기
+      .select('*')  // 이벤트 ID 가져오기
       .eq('phone_number', userPN);  // 회원의 전화번호로 이벤트 조회
 
     if (eventsListError) {
@@ -260,7 +260,7 @@ export const deleteUserById = async (userId, userPN) => {
       const { data: userLikesDelete, error: userLikesDeleteError } = await supabase
         .from('user_likes')
         .delete()
-        .eq('event_id', event);  // 'event_id'가 이벤트를 참조하는 컬럼이라고 가정
+        .eq('event_id', event.id);  // 'event_id'가 이벤트를 참조하는 컬럼이라고 가정
 
       if (userLikesDeleteError) {
         throw new Error("이벤트 ID에 해당하는 user_likes 삭제 실패: " + userLikesDeleteError.message);
@@ -305,9 +305,7 @@ export const deleteUserById = async (userId, userPN) => {
       deletedData: {
         userData,
         userStore,
-        userCouponData,
         userCouponDelete,
-        eventsDataList,
         userLikesDelete,
         CouponData,
         eventsData,
