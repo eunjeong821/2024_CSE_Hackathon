@@ -1,29 +1,30 @@
-<h1 style="display:inline-block"><img src="image/마루.png" alt="마루" width="50" style="margin-right: 20px;"/>다이마루는 강쥐 - 오하린</h1>
+<h1 style="display:inline-block"><img src="image/마루.png" alt="마루" width="40"> 다이마루는 강쥐 - 오하린</h1>
 
 <div align="center">
     <img src="image/투명로고.png" alt="로고" width="30%" />
 </div>
 
-## 서비스 요약
+## ✨ 서비스 요약
 오하린 - 카테고리별로 내 주변 상가의 할인 정보를 한 눈에 조회할 수 있는 서비스
 
-## 주제 구분
+## ✅ 주제 구분
 -	C타입 대구 지역 상권을 살리는데 도움을 주는 서비스 
 
-## 팀원 소개
-팀명: 다이마루는 강쥐
+## 😊 팀원 소개
+<img src="image/마루.png" alt="마루" width="10%"> 다이마루는 강쥐
 |<img src="https://avatars.githubusercontent.com/u/139670857?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/176283083?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/130772931?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/130773385?v=4" width="100">|
 |:---:|:---:|:---:|:---:|
 |[김은정(컴학23)](https://github.com/eunjeong821)|[노현경(컴학23)](https://github.com/getOffWork102)|[배채은(컴학23)](https://github.com/Chaeeun1117)|[이기준(컴학23)](https://github.com/rlwns1224)|
 |프론트엔드|백엔드|백엔드|백엔드|
 
 
-## 시연 영상
+
+## 📹 시연 영상
 (필수) Youtube 링크
 (선택) Github Repository 페이지에서 바로 볼 수 있도록 넣어주셔도 좋습니다.
 
-## 서비스 소개
-### 서비스 개요
+## 📌 서비스 소개
+### 💡 서비스 개요
 <div align="center">
   <img src="image/가로로고.png" alt="가로 로고" width="60%" style="margin-right: 5px;" />
 </div>
@@ -34,10 +35,10 @@
 
 &nbsp;&nbsp; 이렇게 우리는 오하린을 통해 소비자와 상인 간의 소통을 강화하고, 지역 경제를 활성화하는 것을 목표로 합니다. 할인을 찾는 즐거움과 매장 홍보의 편리함을 동시에 누려보세요!
 
-### 타서비스와의 차별점
+### 💡 타서비스와의 차별점
 비슷한 부류의 다른 서비스들과 구별되는 차별점을 기재
 
-### 구현 내용 및 결과물
+### 💡 구현 내용 및 결과물
 1. 위치 기반 할인 행사 조회
 - 현재 위치에서 반경 1~10km 이내의 할인 행사를 실시간으로 확인할 수 있습니다. <br>
 2. 카테고리별 점포 선택
@@ -53,9 +54,9 @@
 7. 회원 관리 기능 제공
 - 비밀번호 찾기, 회원 탈퇴 등 사용자 관리 기능을 지원합니다. <br>
 
-### 구현 방식
+### 💡 구현 방식
 어떤 언어와 프레임워크를 사용했는지, 만약 배포를 진행했다면 환경은 어떤지 등을 기재
 ex) 프론트엔드로는 TypeScript와 React를 사용, 백엔드로는 Java와 Spring을 사용. AWS를 통해 배포를 진행
 
-## 향후 개선 혹은 발전 방안
+## 💭 향후 개선 혹은 발전 방안
 현재 개발된 서비스에서 향후 개선되거나 발전될 수 있는 부분에 대한 설명

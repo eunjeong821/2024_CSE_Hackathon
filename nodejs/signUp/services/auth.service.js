@@ -223,6 +223,28 @@ export const deleteUserById = async (userId, userPN) => {
         throw new Error("회원 삭제 실패 (user_coupon): " + userCouponError.message);
       }
 
+       // 먼저 쿠폰번호를 가져옴
+    const { data: couponsData, error: couponsError } = await supabase
+    .from('coupons')
+    .select('code')
+    .eq('phone_number', userPN);  // Assuming 'phone_number' is the correct column name
+
+  if (couponsError) {
+    throw new Error("쿠폰 조회 실패: " + couponsError.message);
+  }
+
+  // 해당 쿠폰번호를 가진 user_coupon 데이터 삭제
+  for (const coupon of couponsData) {
+    const { data: userCouponDelete, error: userCouponDeleteError } = await supabase
+      .from('user_coupon')
+      .delete()
+      .eq('code', coupon.code);  // 'code'가 쿠폰번호를 참조하는 컬럼이라고 가정
+
+    if (userCouponDeleteError) {
+      throw new Error("쿠폰 번호에 해당하는 user_coupon 삭제 실패: " + userCouponDeleteError.message);
+    }
+  }
+
     // Delete from 'coupons' table where phone number matches
     const { data: CouponData, error: CouponError } = await supabase
       .from('coupons')
@@ -233,7 +255,28 @@ export const deleteUserById = async (userId, userPN) => {
       throw new Error("회원 삭제 실패 (user_coupon): " + CouponError.message);
     }
 
-    
+    // 먼저 이벤트를 조회 (회원이 생성한 이벤트)
+    const { data: eventsDataList, error: eventsListError } = await supabase
+      .from('events')
+      .select('id')  // 이벤트 ID 가져오기
+      .eq('phone_number', userPN);  // 회원의 전화번호로 이벤트 조회
+
+    if (eventsListError) {
+      throw new Error("이벤트 조회 실패: " + eventsError.message);
+    }
+
+    // 이벤트가 있으면 해당 이벤트를 참조하는 user_likes 데이터 삭제
+    for (const event of eventsDataList) {
+      const { data: userLikesDelete, error: userLikesDeleteError } = await supabase
+        .from('user_likes')
+        .delete()
+        .eq('event_id', event.id);  // 'event_id'가 이벤트를 참조하는 컬럼이라고 가정
+
+      if (userLikesDeleteError) {
+        throw new Error("이벤트 ID에 해당하는 user_likes 삭제 실패: " + userLikesDeleteError.message);
+      }
+    }
+
     // Delete from 'events' table where phone number matches
     const { data: eventsData, error: eventsError } = await supabase
       .from('events')
@@ -263,7 +306,10 @@ export const deleteUserById = async (userId, userPN) => {
         userData,
         userStore,
         userCouponData,
+        userCouponDelete,
         CouponData,
+        eventsDataList,
+        userLikesDelete,
         eventsData,
         userLikesData
       }
