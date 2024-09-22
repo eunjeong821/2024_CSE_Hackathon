@@ -92,9 +92,9 @@ document.addEventListener('DOMContentLoaded', function () {
             var category = document.getElementById('category').value; // 카테고리
 
             // 현재 위치가 대구인지 확인
-            if (isInDaegu(lat, lon)) {
-                // JSON 형식으로 데이터 준비
 
+
+            if (isInDaegu(lat, lon)) {
                 const token = localStorage.getItem('token'); // 여기서 JWT 토큰을 가져옵니다.
                 const response = await fetch('http://localhost:3000/api/mypage', {
                     method: 'GET',
@@ -111,6 +111,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 const user = await response.json();
+                const phoneNumber = user.phone_number; // 전화번호 가져오기
+
+                // 전화번호로 가게 존재 여부 확인
+                const { data: existingStore, error: storeCheckError } = await supabase
+                    .from('store')
+                    .select('*')
+                    .eq('phone_number', phoneNumber);
+
+                if (storeCheckError) {
+                    alert('가게 정보 조회 실패: ' + storeCheckError.message);
+                    return;
+                }
+
+                // 가게가 이미 존재하는 경우
+                if (existingStore.length > 0) {
+                    alert('가게는 하나만 등록 가능합니다.'); // 가게가 이미 등록된 경우 메시지 표시
+                    return; // 등록 중단
+                }
+
+                // 가게 등록
                 const { data, error } = await supabase
                     .from('store')
                     .insert([{
@@ -121,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             lat: lat,
                             lon: lon
                         },
-                        phone_number: user.phone_number // 전화번호 추가
+                        phone_number: phoneNumber // 전화번호 추가
                     }]);
                 if (error) {
                     console.error('데이터 저장 실패:', error);
