@@ -30,6 +30,23 @@ document.getElementById('submitEventBtn').addEventListener('click', async functi
     const user = await response.json();
     const phoneNumber = user.phone_number;
 
+    // 가게 정보 조회
+    const { data: storeData, error: storeFetchError } = await supabase
+        .from('store')
+        .select('*')
+        .eq('phone_number', phoneNumber);
+
+    if (storeFetchError) {
+        alert('가게 정보 조회 실패: ' + storeFetchError.message);
+        return;
+    }
+
+    // 가게 정보가 없으면 메시지 표시
+    if (storeData.length === 0) {
+        alert('가게를 먼저 등록해주세요.');
+        return;
+    }
+
     // 기존 이벤트 조회
     const { data: existingEvents, error: fetchError } = await supabase
         .from('events')
