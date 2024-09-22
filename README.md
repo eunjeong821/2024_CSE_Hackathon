@@ -65,8 +65,10 @@
 - 비밀번호 찾기, 회원 탈퇴 등 사용자 관리 기능을 지원합니다. <br>
 
 ### 💡 구현 방식
-어떤 언어와 프레임워크를 사용했는지, 만약 배포를 진행했다면 환경은 어떤지 등을 기재
-ex) 프론트엔드로는 TypeScript와 React를 사용, 백엔드로는 Java와 Spring을 사용. AWS를 통해 배포를 진행
+>> 프론트엔드:
+
+HTML, CSS, JavaScript, jQuery
+설명: 기본적으로 HTML, CSS, JavaScript를 사용하였으며, CSS의 레이아웃 모듈인 Flexbox와 JavaScript의 라이브러리인 jQuery를 이용하여 반응형 웹페이지를 구현했습니다.
 
 ⨠ 백엔드:
 
@@ -78,8 +80,6 @@ ex) 프론트엔드로는 TypeScript와 React를 사용, 백엔드로는 Java와
 
 Supabase (PostgreSQL 기반)
 설명: Supabase를 이용하여 사용자 및 쿠폰 데이터를 관리했으며, 실시간 데이터 동기화를 활용했습니다.
-이거 구현방식이여
-프론트는 몰라서 안 적음
 
 <br>
 
