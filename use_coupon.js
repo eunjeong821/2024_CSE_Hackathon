@@ -32,10 +32,12 @@ const loadCoupons = async () => {
     const phoneNumber = await getUserPhoneNumber();
     if (!phoneNumber) return;
 
-    const { data: userCoupons, error } = await supabase
+      // used가 FALSE인 쿠폰만 조회
+        const { data: userCoupons, error } = await supabase
         .from('user_coupon')
         .select('code, used')
-        .eq('phone_number', phoneNumber);
+        .eq('phone_number', phoneNumber)
+        .eq('used', false); // 사용되지 않은 쿠폰만 필터링
 
     if (error) {
         console.error('쿠폰 조회 실패:', error);
@@ -131,15 +133,15 @@ window.useCoupon = async (code) => { // 전역으로 정의
     newWindow.document.write(couponInfo);
     newWindow.document.close();
 
-    // 쿠폰 사용 처리 및 삭제
-    const { error } = await supabase
+     // 쿠폰 사용 처리 및 업데이트
+        const { error: updateError } = await supabase
         .from('user_coupon')
-        .delete()
+        .update({ used: true }) // used를 TRUE로 업데이트
         .eq('code', code)
         .eq('phone_number', await getUserPhoneNumber());
 
-    if (error) {
-        alert('쿠폰 사용 실패: ' + error.message);
+    if (updateError) {
+        alert('쿠폰 사용 실패: ' + updateError.message);
     } else {
         alert('쿠폰이 사용되었습니다!');
         loadCoupons(); // 쿠폰 목록 새로 고침
