@@ -42,13 +42,11 @@
 &nbsp;&nbsp; 이를 통해 소비자와 상인 간의 소통을 강화하고, 지역 경제를 활성화할 수 있습니다.
 
 ### 💡 타서비스와의 차별점
+|<img src="/2024_CSE_Hackathon/image/네이버지도.png" width="30%">|<img src="/2024_CSE_Hackathon/image/다이마루.png" width="30%"><img src="/2024_CSE_Hackathon/image/더쪽.png" width="30%">|
+|:---:|:---:|
+|기존 지도 서비스|오늘의 할인, '오하린'|
+<br>
 기존 지도 서비스와 '오하린'의 가장 큰 차별점은 할인 이벤트와 쿠폰을 제공하는 가게들을 마커로 표시한다는 점입니다. 기존 지도 서비스들은 카테고리를 선택하든 상관없이 사업자 등록이 되어있는 모든 가게를 보여주지만, '오하린'은 사용자들이 할인 혜택을 쉽게 찾을 수 있도록 특정 가게에만 마커를 띄웁니다. 이를 통해 사용자들은 할인 이벤트를 진행 중인 가게를 우선적으로 찾아볼 수 있습니다. 
-
-|<img src="https://avatars.githubusercontent.com/u/139670857?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/176283083?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/130772931?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/130773385?v=4" width="100">|
-|:---:|:---:|:---:|:---:|
-|[김은정(컴학23)](https://github.com/eunjeong821)|[노현경(컴학23)](https://github.com/getOffWork102)|[배채은(컴학23)](https://github.com/Chaeeun1117)|[이기준(컴학23)](https://github.com/rlwns1224)|
-|프론트엔드|백엔드|백엔드|백엔드|
-
 
 ### 💡 구현 내용 및 결과물
 1. 위치 기반 할인 행사 조회
