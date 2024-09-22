@@ -42,7 +42,7 @@
 &nbsp;&nbsp; 이를 통해 소비자와 상인 간의 소통을 강화하고, 지역 경제를 활성화할 수 있습니다.
 
 ### 💡 타서비스와의 차별점
-|<img src="image/네이버지도.png" width="30%">|<img src="image/다이마루.png" width="30%"><img src="image/더쪽.png" width="30%">|
+|<img src="image/네이버지도.png" width="300px">|<img src="image/다이마루.png" width="300px"><img src="image/더쪽.png" width="300px">|
 |:---:|:---:|
 |기존 지도 서비스|오늘의 할인, '오하린'|
 <br>
