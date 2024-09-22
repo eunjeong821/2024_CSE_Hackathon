@@ -17,7 +17,7 @@
 
                 <!-- Header -->
                 <header id="header">
-                    <a href="nearByStore.html" class="logo"><strong>오늘은 9월 16일</strong></a>
+                    <a href="nearByStore.html" class="logo"><strong id="currentDate"></strong></a>
                 </header>
 
                 <!-- 내 정보 수정 -->
@@ -123,6 +123,20 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+
+	<script>
+		// 현재 날짜를 MM월 DD일 형식으로 표시
+		function formatDate(date) {
+			const month = date.getMonth() + 1; // 월은 0부터 시작하므로 1을 더함
+			const day = date.getDate();
+			return `${month}월 ${day}일`;
+		}
+	
+		document.addEventListener('DOMContentLoaded', function () {
+			const today = new Date();
+			document.getElementById('currentDate').textContent = `오늘은 ${formatDate(today)}입니다.`;
+		});
+	</script>
     <script>
         // 페이지가 로드될 때 사용자 정보 불러오기
         document.addEventListener('DOMContentLoaded', async function () {
