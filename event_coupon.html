@@ -17,7 +17,7 @@
 
 							<!-- Header -->
 								<header id="header">
-									<a href="nearByStore.html" class="logo"><strong>오늘은 9월 16일</strong></a>
+									<a href="nearByStore.html" class="logo"><strong id="currentDate"></strong></a>
 								</header>
 
 							<!-- Event -->
@@ -26,7 +26,7 @@
                                     <div id="eventWrap">
                                         <h2>할인 행사 등록</h2>
                                         <form id="eventForm" onsubmit="return false;">
-                                            <p>행사 이름:</p> <input type="text" id="eventName" placeholder="행사 이름을 입력하세요" required><br><br>
+                                            <p>행사 이름:</p> <input type="text" id="eventName" placeholder="행사 이름과 점포명을 입력하세요 (ex) 아메리카노 10% 할인 행사 [이디야커피 경북대점]" required><br><br>
                                             <p>행사 기간:</p> <input type="date" id="startDate" required><p style="position: relative; top: 10px; left: 5px;">~</p><input type="date" id="endDate" style="margin-right: 45%;" required><br><br>
                                             <p>행사 소개:</p> <textarea id="eventDescription" placeholder="행사 소개를 입력하세요" required></textarea><br><br>
                                         </form>
@@ -104,6 +104,20 @@
 			<script src="assets/js/main.js"></script>
             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=75563b259cee51be8e0b0df6c4ffea4a&libraries=services"></script>
             <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+			<script>
+				// 현재 날짜를 MM월 DD일 형식으로 표시
+				function formatDate(date) {
+					const month = date.getMonth() + 1; // 월은 0부터 시작하므로 1을 더함
+					const day = date.getDate();
+					return `${month}월 ${day}일`;
+				}
+			
+				document.addEventListener('DOMContentLoaded', function () {
+					const today = new Date();
+					document.getElementById('currentDate').textContent = `오늘은 ${formatDate(today)}입니다.`;
+				});
+			</script>
 
             <script type="module" src="use_coupon.js"></script>
 						<script type="module" src="event.js"></script>

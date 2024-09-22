@@ -19,7 +19,7 @@
 
                 <!-- Header -->
                 <header id="header">
-                    <a href="nearByStore.html" class="logo"><strong>오늘은 9월 16일</strong></a>
+                    <a href="nearByStore.html" class="logo"><strong id="currentDate"></strong></a>
                 </header>
 
                 <!-- Login -->
@@ -117,7 +117,28 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+<<<<<<< HEAD
     <!-- 토큰 확인 및 요청 처리 -->
+=======
+
+    <script>
+        // 현재 날짜를 MM월 DD일 형식으로 표시
+        function formatDate(date) {
+            const month = date.getMonth() + 1; // 월은 0부터 시작하므로 1을 더함
+            const day = date.getDate();
+            return `${month}월 ${day}일`;
+        }
+    
+        document.addEventListener('DOMContentLoaded', function () {
+            const today = new Date();
+            document.getElementById('currentDate').textContent = `오늘은 ${formatDate(today)}입니다.`;
+        });
+    </script>
+    
+    
+
+    <!-- Custom Login Script -->
+>>>>>>> 00241b6d602f5798ecfa3ded331527775f3757ac
     <script>
         document.addEventListener('DOMContentLoaded', async function () {
             const token = localStorage.getItem('token');  // 저장된 토큰 불러오기
