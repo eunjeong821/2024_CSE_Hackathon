@@ -214,14 +214,17 @@ const getUserId = async () => {
     function displayEventInfo(eventInfo) {
         if (eventInfo) {
             eventInfoDiv.innerHTML = `
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
+                <div class="nearByStore-list">
                     <div>
-                        <strong>행사 이름:</strong> ${eventInfo.name}<br>
-                        <strong>시작일:</strong> ${eventInfo.start_date}<br>
-                        <strong>종료일:</strong> ${eventInfo.end_date}<br>
-                        <strong>내용:</strong> ${eventInfo.description}
+                        <h2 style="font-size: 23px; margin-bottom: 15px;">행사 이름 : ${eventInfo.name}</h2>
+                        <p>시작일 : ${eventInfo.start_date}</p>
+                        <p>종료일 : ${eventInfo.end_date}</p>
+                        <p>내용 : ${eventInfo.description}</p>
                     </div>
-                    <button id="likeButton" style="margin-left: 10px;">찜하기</button>
+                    <div class="rightButton" style="margin-left: 10px;">
+                        <button id="likeButton">찜하기</button>
+                    </div>
+                    <hr class="dividing-line" style="width: 100%;">
                 </div>
             `;
 
@@ -254,18 +257,22 @@ const getUserId = async () => {
     function displayCouponInfo(coupons) {
         if (coupons.length > 0) {
             couponInfoDiv.innerHTML = `
-                <div style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
-                    <strong>쿠폰 목록:</strong><br>
+                <div class="nearByStore-list">
+                    <h2>쿠폰 목록</h2>
+                    <hr class="dividing-line" style="width: 100%;">
                     <ul>
                         ${coupons.map(coupon => `
-                            <li style="display: flex; justify-content: space-between; align-items: center;">
+                            <li style="list-style: none;">
                                 <div>
-                                    <strong>${coupon.name}</strong><br>
-                                    조건: ${coupon.conditions}<br>
-                                    할인율: ${coupon.discount}%
+                                    <h2 style="font-size: 23px;">${coupon.name}</h2>
+                                    <p>조건 : ${coupon.conditions}</p>
+                                    <p>할인율 : ${coupon.discount}%</p>
                                 </div>
-                                <button class="issue-coupon" data-coupon-code="${coupon.code}" style="margin-left: 10px;">발급하기</button>
+                                <div class="rightButton" style="margin-left: 10px;">
+                                    <button class="issue-coupon" class="rightButton" data-coupon-code="${coupon.code}">발급하기</button>
+                                </div>
                             </li>
+                            <hr class="dividing-line" style="width: 100%;">
                         `).join('')}
                     </ul>
                 </div>
