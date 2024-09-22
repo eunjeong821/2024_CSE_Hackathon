@@ -24,8 +24,7 @@
 <br>
 
 ## 📹 시연 영상
-(필수) Youtube 링크
-(선택) Github Repository 페이지에서 바로 볼 수 있도록 넣어주셔도 좋습니다.
+유튜브 링크: https://youtu.be/WVROUUE9XTo
 
 <br>
 
@@ -95,3 +94,13 @@ Supabase (PostgreSQL 기반)
 8. 추후 가게와 협업하여 애플리케이선 전용 쿠폰이 보급될 예정입니다.
 9. 캘린더를 만들어 원하는 이벤트들을 더 보기좋게 확인할 수 있도록 만들 예정입니다.
 10. 가게가 쿠폰과 행사를 관리하기 편하도록 목록화 한 페이지를 추가로 제작할 예정입니다.
+
+## ❓ 참고사항 - 서비스 실행방법
+1. 터미널에 아래와 같이 입력한다. (node.js 설치가 되어있다는 전제 하에)
+
+```
+cd 2024_CSE_Hackathon/nodejs/signUp
+node app.js
+```
+
+2. Open with Live Server(<Alt>+L <Alt>+O)를 통해 서비스를 실행시킨다.
