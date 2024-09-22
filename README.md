@@ -1,4 +1,4 @@
-<h1 style="display:inline-block"><img src="image/마루.png" alt="마루" width="30" style="margin-right: 5px;"/>다이마루는 강쥐 - 오하린</h1>
+<h1 style="display:inline-block"><img src="image/마루.png" alt="마루" width="50" style="margin-right: 20px;"/>다이마루는 강쥐 - 오하린</h1>
 
 <div align="center">
     <img src="image/투명로고.png" alt="로고" width="30%" />
