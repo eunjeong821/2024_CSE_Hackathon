@@ -70,13 +70,13 @@
 HTML, CSS, JavaScript, jQuery
 설명: 기본적으로 HTML, CSS, JavaScript를 사용하였으며, CSS의 레이아웃 모듈인 Flexbox와 JavaScript의 라이브러리인 jQuery를 이용하여 반응형 웹페이지를 구현했습니다.
 
-⨠ 백엔드:
+>> 백엔드:
 
 언어: JavaScript (Node.js)
 프레임워크: Express.js
 설명: REST API 서버로 Express.js를 사용하였으며, 데이터베이스와의 연결은 Supabase를 통해 처리했습니다. JWT를 사용하여 인증 및 권한 관리를 구현했습니다.
 
-⨠ 데이터베이스:
+>> 데이터베이스:
 
 Supabase (PostgreSQL 기반)
 설명: Supabase를 이용하여 사용자 및 쿠폰 데이터를 관리했으며, 실시간 데이터 동기화를 활용했습니다.
