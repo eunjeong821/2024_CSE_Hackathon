@@ -238,22 +238,12 @@ export const deleteUserById = async (userId, userPN) => {
     const { data: userCouponDelete, error: userCouponDeleteError } = await supabase
       .from('user_coupon')
       .delete()
-      .eq('code', coupon.code);  // 'code'가 쿠폰번호를 참조하는 컬럼이라고 가정
+      .eq('code', coupon);  // 'code'가 쿠폰번호를 참조하는 컬럼이라고 가정
 
     if (userCouponDeleteError) {
       throw new Error("쿠폰 번호에 해당하는 user_coupon 삭제 실패: " + userCouponDeleteError.message);
     }
   }
-
-    // Delete from 'coupons' table where phone number matches
-    const { data: CouponData, error: CouponError } = await supabase
-      .from('coupons')
-      .delete()
-      .eq('phone_number', userPN);  // Assuming 'phone_number' is the correct column name
-
-    if (CouponError) {
-      throw new Error("회원 삭제 실패 (user_coupon): " + CouponError.message);
-    }
 
     // 먼저 이벤트를 조회 (회원이 생성한 이벤트)
     const { data: eventsDataList, error: eventsListError } = await supabase
@@ -270,11 +260,21 @@ export const deleteUserById = async (userId, userPN) => {
       const { data: userLikesDelete, error: userLikesDeleteError } = await supabase
         .from('user_likes')
         .delete()
-        .eq('event_id', event.id);  // 'event_id'가 이벤트를 참조하는 컬럼이라고 가정
+        .eq('event_id', event);  // 'event_id'가 이벤트를 참조하는 컬럼이라고 가정
 
       if (userLikesDeleteError) {
         throw new Error("이벤트 ID에 해당하는 user_likes 삭제 실패: " + userLikesDeleteError.message);
       }
+    }
+    
+    // Delete from 'coupons' table where phone number matches
+    const { data: CouponData, error: CouponError } = await supabase
+      .from('coupons')
+      .delete()
+      .eq('phone_number', userPN);  // Assuming 'phone_number' is the correct column name
+
+    if (CouponError) {
+      throw new Error("회원 삭제 실패 (user_coupon): " + CouponError.message);
     }
 
     // Delete from 'events' table where phone number matches
@@ -307,9 +307,9 @@ export const deleteUserById = async (userId, userPN) => {
         userStore,
         userCouponData,
         userCouponDelete,
-        CouponData,
         eventsDataList,
         userLikesDelete,
+        CouponData,
         eventsData,
         userLikesData
       }
