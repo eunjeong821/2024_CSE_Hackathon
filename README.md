@@ -11,7 +11,7 @@
 -	C타입 대구 지역 상권을 살리는데 도움을 주는 서비스 
 
 ## 😊 팀원 소개
-<p style="display:inline-block"><img src="image/마루.png" alt="마루" width="20"> 다이마루는 강쥐 - 오하린</p>
+<p style="display:inline-block"><img src="image/마루.png" alt="마루" width="20"> 다이마루는 강쥐 - 오하린</p> <br>
 |<img src="https://avatars.githubusercontent.com/u/139670857?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/176283083?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/130772931?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/130773385?v=4" width="100">|
 |:---:|:---:|:---:|:---:|
 |[김은정(컴학23)](https://github.com/eunjeong821)|[노현경(컴학23)](https://github.com/getOffWork102)|[배채은(컴학23)](https://github.com/Chaeeun1117)|[이기준(컴학23)](https://github.com/rlwns1224)|
