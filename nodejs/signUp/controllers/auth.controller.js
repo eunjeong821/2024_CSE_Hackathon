@@ -232,7 +232,7 @@ export const deleteUser = async (req, res) => {
     }
 
     // 데이터베이스에서 사용자 삭제
-    await authService.deleteUserById(user.id, user.phone_number);
+    await authService.deleteUserById(user.id, phoneNumber);
 
     // 성공적으로 삭제되면 응답
     return res.status(httpStatus.OK).json({ success: true, message: "회원이 성공적으로 삭제되었습니다." });

@@ -203,11 +203,25 @@ export const deleteUserById = async (userId, userPN) => {
       throw new Error("회원 삭제 실패 (users): " + userError.message);
     }
 
+    // Delete from 'store' table where phone number matches
+    const { data: userStore, error: userStoreError } = await supabase
+      .from('store')
+      .delete()
+      .eq('phone_number', userPN);  // Assuming 'phone_number' is the correct column name
+      
+      if (userStoreError) {
+        throw new Error("회원 삭제 실패 (user_coupon): " + userStoreError.message);
+      }
+
     // Delete from 'user_coupon' table where phone number matches
     const { data: userCouponData, error: userCouponError } = await supabase
       .from('user_coupon')
       .delete()
       .eq('phone_number', userPN);  // Assuming 'phone_number' is the correct column name
+      
+      if (userCouponError) {
+        throw new Error("회원 삭제 실패 (user_coupon): " + userCouponError.message);
+      }
 
     // Delete from 'coupons' table where phone number matches
     const { data: CouponData, error: CouponError } = await supabase
@@ -216,7 +230,18 @@ export const deleteUserById = async (userId, userPN) => {
       .eq('phone_number', userPN);  // Assuming 'phone_number' is the correct column name
 
     if (CouponError) {
-      throw new Error("회원 삭제 실패 (user_coupon): " + userCouponError.message);
+      throw new Error("회원 삭제 실패 (user_coupon): " + CouponError.message);
+    }
+
+    
+    // Delete from 'events' table where phone number matches
+    const { data: eventsData, error: eventsError } = await supabase
+      .from('events')
+      .delete()
+      .eq('phone_number', userPN);  // Assuming 'phone_number' is the correct column name
+
+    if (eventsError) {
+      throw new Error("회원 삭제 실패 (events): " + eventsError.message);
     }
 
     // Delete from 'user_likes' table where id matches
@@ -229,15 +254,6 @@ export const deleteUserById = async (userId, userPN) => {
       throw new Error("회원 삭제 실패 (user_likes): " + userLikesError.message);
     }
 
-    // Delete from 'events' table where phone number matches
-    const { data: eventsData, error: eventsError } = await supabase
-      .from('events')
-      .delete()
-      .eq('phone_number', userPN);  // Assuming 'phone_number' is the correct column name
-
-    if (eventsError) {
-      throw new Error("회원 삭제 실패 (events): " + eventsError.message);
-    }
 
     // Return success response or detailed data from all tables
     return {
@@ -245,10 +261,11 @@ export const deleteUserById = async (userId, userPN) => {
       message: "회원이 성공적으로 삭제되었습니다.",
       deletedData: {
         userData,
-        CouponData,
+        userStore,
         userCouponData,
-        userLikesData,
-        eventsData
+        CouponData,
+        eventsData,
+        userLikesData
       }
     };
   } catch (error) {
