@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 대구의 위도와 경도 범위 설정
     function isInDaegu(lat, lon) {
-        const daeguLatRange = [35.8006, 35.9006]; // 대구 위도 범위
-        const daeguLonRange = [128.5809, 128.6709]; // 대구 경도 범위
+        const daeguLatRange = [35.8000, 36.0000]; // 대구 위도 범위
+        const daeguLonRange = [128.5000, 128.8000]; // 대구 경도 범위
 
         return (lat >= daeguLatRange[0] && lat <= daeguLatRange[1] &&
             lon >= daeguLonRange[0] && lon <= daeguLonRange[1]);

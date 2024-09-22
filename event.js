@@ -5,8 +5,7 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 // Supabase 클라이언트 생성
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey); 
 
-
-document.getElementById('submitEventBtn').addEventListener('click', async function() {
+document.getElementById('submitEventBtn').addEventListener('click', async function(event) {
     event.preventDefault(); // 기본 폼 제출 방지
     const eventName = document.getElementById('eventName').value;
     const startDate = document.getElementById('startDate').value;
@@ -31,7 +30,31 @@ document.getElementById('submitEventBtn').addEventListener('click', async functi
     const user = await response.json();
     const phoneNumber = user.phone_number;
 
-    // 할인 행사 등록
+    // 기존 이벤트 조회
+    const { data: existingEvents, error: fetchError } = await supabase
+        .from('events')
+        .select('*')
+        .eq('phone_number', phoneNumber);
+
+    if (fetchError) {
+        alert('이벤트 조회 실패: ' + fetchError.message);
+        return;
+    }
+
+    // 기존 이벤트가 있으면 삭제
+    if (existingEvents.length > 0) {
+        const { error: deleteError } = await supabase
+            .from('events')
+            .delete()
+            .eq('phone_number', phoneNumber); // 전화번호에 해당하는 이벤트 삭제
+
+        if (deleteError) {
+            alert('기존 이벤트 삭제 실패: ' + deleteError.message);
+            return;
+        }
+    }
+
+    // 새로운 할인 행사 등록
     const { data, error } = await supabase
         .from('events') // 'events' 테이블에 등록한다고 가정
         .insert([{ 
@@ -39,7 +62,7 @@ document.getElementById('submitEventBtn').addEventListener('click', async functi
             start_date: startDate, 
             end_date: endDate,
             description: eventDescription,
-            phone_number : phoneNumber // 행사 소개글 추가
+            phone_number: phoneNumber // 행사 소개글 추가
         }]);
 
     if (error) {
@@ -49,7 +72,3 @@ document.getElementById('submitEventBtn').addEventListener('click', async functi
         document.getElementById('eventForm').reset();
     }
 });
-
-
-
-
