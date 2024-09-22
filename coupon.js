@@ -5,9 +5,6 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 // Supabase 클라이언트 생성
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey); 
 
-
-
-
 // 랜덤 쿠폰 코드 생성 함수
 export const generateCouponCode = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -23,8 +20,7 @@ export const generateCouponCode = () => {
 };
 
 // 쿠폰 폼 제출 시
-document.getElementById('submitCouponBtn').addEventListener('click', async function() {
-
+document.getElementById('submitCouponBtn').addEventListener('click', async function(event) {
     event.preventDefault(); // 기본 폼 제출 방지
 
     const couponCode = generateCouponCode(); // 랜덤 쿠폰 코드 생성
@@ -34,7 +30,6 @@ document.getElementById('submitCouponBtn').addEventListener('click', async funct
     const conditions = document.getElementById('conditions').value;
 
     // 사용자 전화번호 가져오기
-
     const token = localStorage.getItem('token'); // 여기서 JWT 토큰을 가져옵니다.
     const response = await fetch('http://localhost:3000/api/mypage', {
         method: 'GET',
@@ -53,6 +48,23 @@ document.getElementById('submitCouponBtn').addEventListener('click', async funct
     const user = await response.json();
     const phoneNumber = user.phone_number; 
     
+    // 가게 정보 조회
+    const { data: storeData, error: storeFetchError } = await supabase
+        .from('store')
+        .select('*')
+        .eq('phone_number', phoneNumber);
+
+    if (storeFetchError) {
+        alert('가게 정보 조회 실패: ' + storeFetchError.message);
+        return;
+    }
+
+    // 가게 정보가 없으면 메시지 표시
+    if (storeData.length === 0) {
+        alert('가게를 먼저 등록해주세요.'); // 가게가 없을 경우 메시지 표시
+        return; // 쿠폰 등록 중단
+    }
+
     // 쿠폰 등록
     const { data: couponData, error: couponError } = await supabase
         .from('coupons')
