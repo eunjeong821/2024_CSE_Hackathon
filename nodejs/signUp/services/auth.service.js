@@ -226,7 +226,7 @@ export const deleteUserById = async (userId, userPN) => {
        // 먼저 쿠폰번호를 가져옴
     const { data: couponsData, error: couponsError } = await supabase
     .from('coupons')
-    .select('code')
+    .select('*')
     .eq('phone_number', userPN);  // Assuming 'phone_number' is the correct column name
 
   if (couponsError) {
@@ -245,20 +245,10 @@ export const deleteUserById = async (userId, userPN) => {
     }
   }
 
-    // Delete from 'coupons' table where phone number matches
-    const { data: CouponData, error: CouponError } = await supabase
-      .from('coupons')
-      .delete()
-      .eq('phone_number', userPN);  // Assuming 'phone_number' is the correct column name
-
-    if (CouponError) {
-      throw new Error("회원 삭제 실패 (user_coupon): " + CouponError.message);
-    }
-
     // 먼저 이벤트를 조회 (회원이 생성한 이벤트)
     const { data: eventsDataList, error: eventsListError } = await supabase
       .from('events')
-      .select('id')  // 이벤트 ID 가져오기
+      .select('*')  // 이벤트 ID 가져오기
       .eq('phone_number', userPN);  // 회원의 전화번호로 이벤트 조회
 
     if (eventsListError) {
@@ -275,6 +265,16 @@ export const deleteUserById = async (userId, userPN) => {
       if (userLikesDeleteError) {
         throw new Error("이벤트 ID에 해당하는 user_likes 삭제 실패: " + userLikesDeleteError.message);
       }
+    }
+    
+    // Delete from 'coupons' table where phone number matches
+    const { data: CouponData, error: CouponError } = await supabase
+      .from('coupons')
+      .delete()
+      .eq('phone_number', userPN);  // Assuming 'phone_number' is the correct column name
+
+    if (CouponError) {
+      throw new Error("회원 삭제 실패 (user_coupon): " + CouponError.message);
     }
 
     // Delete from 'events' table where phone number matches
@@ -305,11 +305,9 @@ export const deleteUserById = async (userId, userPN) => {
       deletedData: {
         userData,
         userStore,
-        userCouponData,
         userCouponDelete,
-        CouponData,
-        eventsDataList,
         userLikesDelete,
+        CouponData,
         eventsData,
         userLikesData
       }

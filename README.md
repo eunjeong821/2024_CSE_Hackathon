@@ -7,21 +7,27 @@
 ## ✨ 서비스 요약
 오하린 - 카테고리별로 내 주변 상가의 할인 정보를 한 눈에 조회할 수 있는 서비스
 
+<br>
+
 ## ✅ 주제 구분
 -	C타입 대구 지역 상권을 살리는데 도움을 주는 서비스 
 
+<br>
+
 ## 😊 팀원 소개
-<img src="image/마루.png" alt="마루" width="10%"> 다이마루는 강쥐
+<img src="image/마루.png" alt="마루" width="30px"> 다이마루는 강쥐
 |<img src="https://avatars.githubusercontent.com/u/139670857?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/176283083?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/130772931?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/130773385?v=4" width="100">|
 |:---:|:---:|:---:|:---:|
 |[김은정(컴학23)](https://github.com/eunjeong821)|[노현경(컴학23)](https://github.com/getOffWork102)|[배채은(컴학23)](https://github.com/Chaeeun1117)|[이기준(컴학23)](https://github.com/rlwns1224)|
 |프론트엔드|백엔드|백엔드|백엔드|
 
-
+<br>
 
 ## 📹 시연 영상
 (필수) Youtube 링크
 (선택) Github Repository 페이지에서 바로 볼 수 있도록 넣어주셔도 좋습니다.
+
+<br>
 
 ## 📌 서비스 소개
 ### 💡 서비스 개요
@@ -29,14 +35,20 @@
   <img src="image/가로로고.png" alt="가로 로고" width="60%" style="margin-right: 5px;" />
 </div>
 
-&nbsp;&nbsp; 오늘의 할인, "오하린"은 주변 오프라인 매장에서 진행 중인 다양한 할인 행사와 이벤트를 손쉽게 찾아볼 수 있는 혁신적인 서비스입니다. 음식점, 공방, 의류 매장 등 다양한 카테고리의 할인 정보를 실시간으로 제공하여, 소비자들이 스마트한 소비를 할 수 있도록 돕습니다.
+&nbsp;&nbsp; 오늘의 할인, "오하린"은 주변 오프라인 매장에서 진행 중인 다양한 할인 행사와 이벤트를 음식점, 공방, 의류 매장 등 다양한 카테고리로 구분하여 손쉽게 찾아볼 수 있는 서비스입니다.
 
-&nbsp;&nbsp; 오하린은 사용자에게 가까운 매장의 할인 정보 조회 기능과 맞춤형 추천 정보을, 매장 상인들에겐 가게 홍보 기회를 제공해 줍니다.
+&nbsp;&nbsp; 고객들은 가까운 매장의 할인 정보 조회 기능과 맞춤형 추천 정보을, 매장 상인들은 가게 홍보 기회를 편리하게 얻을 수 있습니다.
 
-&nbsp;&nbsp; 이렇게 우리는 오하린을 통해 소비자와 상인 간의 소통을 강화하고, 지역 경제를 활성화하는 것을 목표로 합니다. 할인을 찾는 즐거움과 매장 홍보의 편리함을 동시에 누려보세요!
+&nbsp;&nbsp; 이를 통해 소비자와 상인 간의 소통을 강화하고, 지역 경제를 활성화할 수 있습니다.
 
 ### 💡 타서비스와의 차별점
-비슷한 부류의 다른 서비스들과 구별되는 차별점을 기재
+기존 지도 서비스와 '오하린'의 가장 큰 차별점은 할인 이벤트와 쿠폰을 제공하는 가게들을 마커로 표시한다는 점입니다. 기존 지도 서비스들은 카테고리를 선택하든 상관없이 사업자 등록이 되어있는 모든 가게를 보여주지만, '오하린'은 사용자들이 할인 혜택을 쉽게 찾을 수 있도록 특정 가게에만 마커를 띄웁니다. 이를 통해 사용자들은 할인 이벤트를 진행 중인 가게를 우선적으로 찾아볼 수 있습니다. 
+
+|<img src="https://avatars.githubusercontent.com/u/139670857?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/176283083?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/130772931?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/130773385?v=4" width="100">|
+|:---:|:---:|:---:|:---:|
+|[김은정(컴학23)](https://github.com/eunjeong821)|[노현경(컴학23)](https://github.com/getOffWork102)|[배채은(컴학23)](https://github.com/Chaeeun1117)|[이기준(컴학23)](https://github.com/rlwns1224)|
+|프론트엔드|백엔드|백엔드|백엔드|
+
 
 ### 💡 구현 내용 및 결과물
 1. 위치 기반 할인 행사 조회
@@ -57,6 +69,8 @@
 ### 💡 구현 방식
 어떤 언어와 프레임워크를 사용했는지, 만약 배포를 진행했다면 환경은 어떤지 등을 기재
 ex) 프론트엔드로는 TypeScript와 React를 사용, 백엔드로는 Java와 Spring을 사용. AWS를 통해 배포를 진행
+
+<br>
 
 ## 💭 향후 개선 혹은 발전 방안
 현재 개발된 서비스에서 향후 개선되거나 발전될 수 있는 부분에 대한 설명
