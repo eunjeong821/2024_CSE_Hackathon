@@ -4,7 +4,7 @@
 </div>
 
 <div align="center">
-    <img src="image/투명로고.png" alt="로고" width="50%" />
+    <img src="image/투명로고.png" alt="로고" width="30%" />
 </div>
 
 ## 서비스 요약
@@ -27,7 +27,9 @@
 
 ## 서비스 소개
 ### 서비스 개요
-<img src="image/가로로고.png" alt="가로 로고" width="70%" style="margin-right: 5px;" />
+<div align="center">
+  <img src="image/가로로고.png" alt="가로 로고" width="60%" style="margin-right: 5px;" />
+</div>
 <p>
   오늘의 할인, "오하린"은 주변 오프라인 매장에서 진행 중인 다양한 할인 행사와 이벤트를 음식점, 공방, 의류 매장 등 다양한 카테고리로 구분하여 손쉽게 찾아볼 수 있는 서비스입니다. <br>
   고객들은 가까운 매장의 할인 정보 조회 기능과 맞춤형 추천 정보을, 매장 상인들은 가게 홍보 기회를 편리하게 얻을 수 있습니다. <br>
