@@ -210,18 +210,38 @@ export const login = async (req, res) => {
 
 // 회원 삭제 함수
 export const deleteUser = async (req, res) => {
-  const userId = req.user.id;  // JWT로부터 사용자 ID를 가져옴
+  const { phoneNumber, password } = req.query;  // 클라이언트에서 받은 전화번호와 비밀번호
+  const userIdFromToken = req.user.id;  // JWT에서 추출한 사용자 ID (토큰에 포함된 ID)
 
   try {
+    // 전화번호로 사용자 찾기 (DB에서 사용자 정보 가져오기)
+    const user = await authService.getUserByPhoneNumber(phoneNumber);
+    if (!user) {
+      return res.status(httpStatus.UNAUTHORIZED).json({ message: "사용자를 찾을 수 없습니다." });
+    }
+
+    // JWT의 사용자 ID와 DB에서 가져온 사용자의 ID가 일치하는지 확인
+    if (user.id !== userIdFromToken) {
+      return res.status(httpStatus.UNAUTHORIZED).json({ message: "본인 계정이 아닙니다." });
+    }
+
+    // 비밀번호 검증 (클라이언트에서 입력된 비밀번호와 DB에 저장된 해시된 비밀번호 비교)
+    const isPasswordValid = await authService.comparePassword(password, user.password_hash);
+    if (!isPasswordValid) {
+      return res.status(httpStatus.UNAUTHORIZED).json({ message: "비밀번호가 일치하지 않습니다." });
+    }
+
     // 데이터베이스에서 사용자 삭제
-    await authService.deleteUserById(userId);
+    await authService.deleteUserById(user.id, user.phone_number);
 
     // 성공적으로 삭제되면 응답
-    return res.status(200).json({ success: true, message: "회원이 성공적으로 삭제되었습니다." });
+    return res.status(httpStatus.OK).json({ success: true, message: "회원이 성공적으로 삭제되었습니다." });
   } catch (error) {
-    return res.status(500).json({ success: false, message: "회원 삭제 실패: " + error.message });
+    console.error("회원 삭제 중 에러 발생: ", error);  // 에러를 서버 콘솔에 출력
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ success: false, message: "회원 삭제 실패: " + error.message });
   }
 };
+
 
 // 로그아웃 처리
 export const logout = (req, res) => {
